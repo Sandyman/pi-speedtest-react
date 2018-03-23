@@ -8,9 +8,9 @@ import createState from '../util/state';
 
 import popupWindow from '../util/openWindow';
 import * as userActions from '../actions/userActions';
-import { decode } from "jsonwebtoken";
+// import { decode } from "jsonwebtoken";
 
-import icon from '../github-icon-1.png';
+import icon from '../github-icon-2.png';
 
 const getWindowOptions = () => {
   const windowArea = {
@@ -80,7 +80,7 @@ class Login extends Component {
           <Jumbotron>
             <Media>
               <Media.Left>
-                <img width={240} height={240} src={icon} alt="thumbnail" />
+                <img width={288} height={240} src={icon} alt="Purrrr" />
               </Media.Left>
               <Media.Body>
                 <Media.Heading>

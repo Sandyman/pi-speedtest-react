@@ -4,30 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
-import popupWindow from '../util/openWindow';
 import * as userActions from '../actions/userActions';
-
-const getWindowOptions = () => {
-  const windowArea = {
-    width: Math.max(Math.floor(window.outerWidth * 0.6), 1000),
-    height: Math.max(Math.floor(window.outerHeight * 0.9), 630),
-  };
-  windowArea.left = Math.floor(window.screenX + ((window.outerWidth - windowArea.width) / 2));
-  windowArea.top = Math.floor(window.screenY + ((window.outerHeight - windowArea.height) / 8));
-
-  return {
-    toolbar: 0,
-    scrollbars: 1,
-    status: 1,
-    resizable: 1,
-    location: 1,
-    menuBar: 0,
-    width: windowArea.width,
-    height: windowArea.height,
-    left: windowArea.left,
-    top: windowArea.top,
-  }
-};
 
 class AppMenu extends Component {
   render() {
