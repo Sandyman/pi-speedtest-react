@@ -1,6 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { render } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import reducer from './reducers'
+import thunk from 'redux-thunk'
+
+import App from './App'
+
+import './index.css';
+
+const configMiddleware = [ thunk ];
+const initialState = (window && window.__INITIALSTATE__) || {};
+const composeEnhancers = (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
+const store = createStore(
+  reducer,
+  initialState,
+  composeEnhancers(applyMiddleware(...configMiddleware))
+);
+
+render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App/>
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
+);

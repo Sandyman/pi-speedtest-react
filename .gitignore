@@ -27,3 +27,5 @@ yarn-error.log*
 
 # Webstorm files
 .idea
+
+config-*.json
