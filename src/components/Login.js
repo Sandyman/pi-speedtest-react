@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Button, Grid, Jumbotron, Media, Navbar, Row } from 'react-bootstrap';
 import { toQuery, } from '../util/utils';
 import createState from '../util/state';
@@ -35,21 +36,25 @@ const getWindowOptions = () => {
 };
 
 class Login extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      redirectHome: false,
+    };
+  }
 
   handleLogin() {
-    const state = createState();
-    const search = toQuery({
+    const secretState = createState();
+    const qs = toQuery({
       client_id: 'd7af928a33075b0c817c',
       scope: 'user',
-      state: state,
+      state: secretState,
       redirect_uri: 'http://localhost:3000/auth/callback',
     });
     const popup = popupWindow.open(
-      state,
-      `https://github.com/login/oauth/authorize?${search}`,
+      secretState,
+      `https://github.com/login/oauth/authorize?${qs}`,
       getWindowOptions(),
     );
     popup
@@ -57,18 +62,29 @@ class Login extends Component {
         // console.log(response);
         const { code, state } = response;
         this.props.userActions.authoriseUser(code, state);
+        setTimeout(() => {
+          this.setState({
+            redirectHome: true,
+          })
+        }, 500);
       })
       .catch(console.log);
   }
 
   render() {
+    if (this.state.redirectHome) {
+      return (
+        <Redirect to='/'/>
+      );
+    }
+
     return (
       <Grid bsClass="container">
         <Row>
           <Navbar collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
-                Pi-Speedtest.net
+                Rasperry Pi Speedtest
               </Navbar.Brand>
             </Navbar.Header>
           </Navbar>
@@ -84,7 +100,7 @@ class Login extends Component {
               </Media.Left>
               <Media.Body>
                 <Media.Heading>
-                  <h3>Log in using GitHub</h3>
+                  <h5>Log in using GitHub</h5>
                 </Media.Heading>
                 <p>
                   For now, we only support logging in using GitHub. No need to set up an account or anything, simply click

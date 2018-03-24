@@ -22,7 +22,7 @@ export const logoutUser = () => {
   if (jwtToken) {
     window.sessionStorage.removeItem('jwtToken');
 
-    const url = `${apiEndpoint}/logout`;
+    const url = `${apiEndpoint}/auth/logout`;
     const header = {
       method: 'GET',
       headers: {
