@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/userActionTypes';
 export const initialState = {
   isAuthenticated: false,
   isInvalidated: false,
+  isLoading: false,
   user: {}
 };
 
@@ -15,6 +16,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         isInvalidated: false,
+        isLoading: false,
         user: payload.user
       };
 
@@ -32,6 +34,7 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.REQUEST:
       return {
         ...state,
+        isLoading: true,
         isInvalidated: false,
         isAuthenticated: false,
       };

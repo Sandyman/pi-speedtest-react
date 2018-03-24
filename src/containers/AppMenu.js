@@ -40,7 +40,7 @@ class AppMenu extends Component {
   }
 
   render() {
-    const { isAuthenticated, isInvalidated, currentUser } = this.props;
+    const { isAuthenticated, isInvalidated, isLoading, currentUser } = this.props;
 
     if (isInvalidated || this.state.redirectLogin) {
       return <Redirect to='/login' />
@@ -52,7 +52,7 @@ class AppMenu extends Component {
         <MenuItem onClick={this.handleLogout.bind(this)}>Log Out</MenuItem>
       </NavDropdown>
       :
-      <NavItem onClick={this.handleLogin.bind(this)}>
+      <NavItem onClick={this.handleLogin.bind(this)} disabled={isLoading}>
         Log in
       </NavItem>;
 
@@ -72,15 +72,18 @@ class AppMenu extends Component {
 AppMenu.propTypes = {
   isAuthenticated: propTypes.bool,
   isInvalidated: propTypes.bool,
+  isLoading: propTypes.bool,
   currentUser: propTypes.object
 };
 
 const mapStateToProps = state => {
   const { user } = state;
+  const { isInvalidated, isAuthenticated, isLoading } = user;
   return {
-    isInvalidated: user.isInvalidated,
-    isAuthenticated: user.isAuthenticated,
-    currentUser: user.user
+    isInvalidated,
+    isAuthenticated,
+    isLoading,
+    currentUser: user.user,
   }
 };
 
