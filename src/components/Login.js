@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { Button, Grid, Jumbotron, Media, Navbar, Row } from 'react-bootstrap';
 import { toQuery, } from '../util/utils';
 import createState from '../util/state';
-
+import NavbarHeader from './NavbarHeader';
 import popupWindow from '../util/openWindow';
 import * as userActions from '../actions/userActions';
 // import { decode } from "jsonwebtoken";
@@ -81,12 +81,8 @@ class Login extends Component {
     return (
       <Grid bsClass="container">
         <Row>
-          <Navbar collapseOnSelect>
-            <Navbar.Header>
-              <Navbar.Brand>
-                Rasperry Pi Speedtest
-              </Navbar.Brand>
-            </Navbar.Header>
+          <Navbar>
+            <NavbarHeader />
           </Navbar>
         </Row>
         <Row>

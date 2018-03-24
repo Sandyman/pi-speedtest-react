@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { decode } from 'jsonwebtoken';
+import NavbarHeader from '../components/NavbarHeader';
 
 import * as userActions from '../actions/userActions';
 
@@ -57,11 +58,7 @@ class AppMenu extends Component {
 
     return (
       <Navbar>
-        <Navbar.Header>
-          <Navbar.Brand>
-            Pi-Speedtest.net
-          </Navbar.Brand>
-        </Navbar.Header>
+        <NavbarHeader />
         <Navbar.Collapse>
           <Nav pullRight>
             {loginButton}
