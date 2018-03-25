@@ -40,7 +40,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      redirectToAccount: false,
+      redirectToHome: false,
     };
   }
 
@@ -64,7 +64,7 @@ class Login extends Component {
         this.props.userActions.authoriseUser(code, state);
         setTimeout(() => {
           this.setState({
-            redirectToAccount: true,
+            redirectToHome: true,
           })
         }, 500);
       })
@@ -72,9 +72,9 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.redirectToAccount) {
+    if (this.state.redirectToHome) {
       return (
-        <Redirect to='/account'/>
+        <Redirect exact to='/'/>
       );
     }
 
