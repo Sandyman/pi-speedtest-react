@@ -4,7 +4,7 @@ import { Navbar } from 'react-bootstrap';
 const NavbarHeader = () => (
   <Navbar.Header>
     <Navbar.Brand>
-      Rasperry Pi Speedtest
+      Raspberry Pi Speedtest
     </Navbar.Brand>
   </Navbar.Header>
 );
