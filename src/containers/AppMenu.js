@@ -14,6 +14,7 @@ class AppMenu extends Component {
     super(props);
 
     this.state = {
+      redirectAccount: false,
       redirectLogin: false,
     }
   }
@@ -29,6 +30,12 @@ class AppMenu extends Component {
     }
   }
 
+  handleAccount() {
+    this.setState({
+      redirectAccount: true,
+    });
+  }
+
   handleLogin() {
     this.setState({
       redirectLogin: true,
@@ -37,18 +44,24 @@ class AppMenu extends Component {
 
   handleLogout() {
     this.props.userActions.logoutUser();
+    this.setState({
+      redirectLogin: true,
+    })
   }
 
   render() {
     const { isAuthenticated, isInvalidated, isLoading, currentUser } = this.props;
 
-    if (isInvalidated || this.state.redirectLogin) {
-      return <Redirect to='/login' />
+    if (this.state.redirectAccount) {
+      return <Redirect exact to='/account' />
+    }
+    if (this.state.redirectLogin || isInvalidated) {
+      return <Redirect exact to='/login' />
     }
 
     const loginButton = isAuthenticated ?
       <NavDropdown title={isAuthenticated ? currentUser.name : ''} id="basic-nav-dropdown">
-        <MenuItem>Account</MenuItem>
+        <MenuItem onClick={this.handleAccount.bind(this)}>Account</MenuItem>
         <MenuItem onClick={this.handleLogout.bind(this)}>Log Out</MenuItem>
       </NavDropdown>
       :

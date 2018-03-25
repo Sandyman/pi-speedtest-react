@@ -40,7 +40,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      redirectHome: false,
+      redirectToAccount: false,
     };
   }
 
@@ -64,7 +64,7 @@ class Login extends Component {
         this.props.userActions.authoriseUser(code, state);
         setTimeout(() => {
           this.setState({
-            redirectHome: true,
+            redirectToAccount: true,
           })
         }, 500);
       })
@@ -72,9 +72,9 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.redirectHome) {
+    if (this.state.redirectToAccount) {
       return (
-        <Redirect to='/'/>
+        <Redirect to='/account'/>
       );
     }
 
@@ -96,7 +96,7 @@ class Login extends Component {
               </Media.Left>
               <Media.Body>
                 <Media.Heading>
-                  <h5>Log in using GitHub</h5>
+                  Log in using GitHub<br/><br/>
                 </Media.Heading>
                 <p>
                   For now, we only support logging in using GitHub. No need to set up an account or anything, simply click
