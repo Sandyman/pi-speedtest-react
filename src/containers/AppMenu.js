@@ -10,15 +10,6 @@ import NavbarHeader from '../components/NavbarHeader';
 import * as userActions from '../actions/userActions';
 
 class AppMenu extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      redirectAccount: false,
-      redirectLogin: false,
-    }
-  }
-
   componentDidMount() {
     let jwtToken;
     if (sessionStorage) {

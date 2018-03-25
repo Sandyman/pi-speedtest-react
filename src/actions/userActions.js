@@ -18,7 +18,7 @@ export const injectUser = (user = {}) => {
 };
 
 export const logoutUser = () => {
-  const jwtToken = sessionStorage.getItem('jwtToken');
+  const jwtToken = window.sessionStorage.getItem('jwtToken');
   if (jwtToken) {
     window.sessionStorage.removeItem('jwtToken');
 
