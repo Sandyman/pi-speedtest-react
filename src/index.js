@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from './reducers'
 import thunk from 'redux-thunk'
 
-import App from './App'
+import Main from './Main';
 
 import './index.css';
 
@@ -24,7 +24,7 @@ const store = createStore(
 render(
   <Provider store={store}>
     <BrowserRouter>
-      <App/>
+      <Main/>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

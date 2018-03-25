@@ -1,16 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import ProtectedRoute from '../router/ProtectedRoute';
-import Account from './Account';
-import Home from './Home';
-import Login from './Login';
-import Success from './Success';
+import Account from './components/Account';
+import Home from './components/Home';
+import Login from './components/Login';
+import Success from './components/Success';
 
 const Main = () => (
   <main>
     <Switch>
       <Route exact path='/' component={Home} />
-      <ProtectedRoute path='/account' component={Account} />
+      <Route path='/account' component={Account} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/auth/callback' component={Success} />
     </Switch>
