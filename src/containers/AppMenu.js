@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MenuItem, Nav, Navbar, NavDropdown, NavItem } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { decode } from 'jsonwebtoken';
 import NavbarHeader from '../components/NavbarHeader';
@@ -31,33 +31,20 @@ class AppMenu extends Component {
   }
 
   handleAccount() {
-    this.setState({
-      redirectAccount: true,
-    });
+    this.props.history.push('/account');
   }
 
   handleLogin() {
-    this.setState({
-      redirectLogin: true,
-    });
+    this.props.history.push('/login');
   }
 
   handleLogout() {
     this.props.userActions.logoutUser();
-    this.setState({
-      redirectLogin: true,
-    })
+    this.props.history.push('/login');
   }
 
   render() {
-    const { isAuthenticated, isInvalidated, isLoading, currentUser } = this.props;
-
-    if (this.state.redirectAccount) {
-      return <Redirect exact to='/account' />
-    }
-    if (this.state.redirectLogin || isInvalidated) {
-      return <Redirect exact to='/login' />
-    }
+    const { isAuthenticated, isLoading, currentUser } = this.props;
 
     const loginButton = isAuthenticated ?
       <NavDropdown title={isAuthenticated ? currentUser.name : ''} id="basic-nav-dropdown">
@@ -104,4 +91,4 @@ const mapDispatchToProps = dispatch => ({
   userActions: bindActionCreators(userActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppMenu);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppMenu));
