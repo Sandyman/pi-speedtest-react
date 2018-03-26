@@ -49,7 +49,7 @@ class Home extends Component {
         <Row>
           <br/><br/><br/>
           <ButtonToolbar>
-            <Button>Refresh</Button>
+            <Button bsStyle='primary'>Refresh</Button>
           </ButtonToolbar>
         </Row>
         <Row>
