@@ -39,7 +39,7 @@ const samplesToChartData = (samples) => {
       fill: false,
       lineTension: 0.1,
       backgroundColor: 'rgba(33,35,199,0.4)',
-      borderColor: 'rgba(33,35,199,1)',
+      borderColor: 'rgba(33,35,199,0.6)',
       borderCapStyle: 'butt',
       borderDash: [],
       borderDashOffset: 0.0,
@@ -62,7 +62,7 @@ const samplesToChartData = (samples) => {
       fill: false,
       lineTension: 0.1,
       backgroundColor: 'rgba(121,123,221,0.4)',
-      borderColor: 'rgba(121,123,221,1)',
+      borderColor: 'rgba(121,123,221,0.6)',
       borderCapStyle: 'butt',
       borderDash: [],
       borderDashOffset: 0.0,
@@ -84,7 +84,7 @@ const samplesToChartData = (samples) => {
       fill: false,
       lineTension: 0.1,
       backgroundColor: 'rgba(225,29,29,0.4)',
-      borderColor: 'rgba(225,29,29,1)',
+      borderColor: 'rgba(225,29,29,0.6)',
       borderCapStyle: 'butt',
       borderDash: [],
       borderDashOffset: 0.0,
@@ -127,9 +127,15 @@ const chartOptions = {
 
   scales: {
     xAxes: [{
+      gridLines: {
+        color: 'rgba(33,35,199,0.2)',
+      },
       stacked: false
     }],
     yAxes: [{
+      gridLines: {
+        color: 'rgba(33,35,199,0.2)',
+      },
       scalePositionLeft: true,
       stacked: false,
       position: "left",
@@ -138,6 +144,9 @@ const chartOptions = {
       },
       id: "y-axis-0",
     }, {
+      gridLines: {
+        display: false,
+      },
       scalePositionLeft: false,
       stacked: false,
       position: "right",
