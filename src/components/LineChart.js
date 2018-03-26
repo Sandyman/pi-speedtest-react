@@ -112,8 +112,6 @@ class LineChart extends Component {
     const { options, samples } = this.props;
     const chartData = samplesToChartData(samples, options);
     const chartOptions = getChartOptions(options);
-    console.log(chartData);
-    console.log(chartOptions);
     return (
       <Line
         data={chartData}

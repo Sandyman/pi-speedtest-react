@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Grid, Row } from 'react-bootstrap';
+import { Button, ButtonToolbar, Grid, Row } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import LineChart from './LineChart';
 import AppMenu from '../containers/AppMenu';
@@ -21,7 +21,12 @@ class Home extends Component {
   }
 
   render() {
-    const { samples } = this.props;
+    const { isAuthenticated, isLoading, samples } = this.props;
+
+    if (!isAuthenticated && !isLoading) {
+      this.props.history.push('/login');
+      return null;
+    }
 
     const chart = samples
       ? <LineChart
@@ -43,6 +48,9 @@ class Home extends Component {
         </Row>
         <Row>
           <br/><br/><br/>
+          <ButtonToolbar>
+            <Button>Refresh</Button>
+          </ButtonToolbar>
         </Row>
         <Row>
           {chart}
@@ -53,13 +61,18 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+  isAuthenticated: propTypes.bool,
+  isLoading: propTypes.bool,
   samples: propTypes.array,
 };
 
 const mapStateToProps = (state) => {
-  const { data } = state;
+  const { data, user } = state;
   const { samples } = data;
+  const { isAuthenticated, isLoading } = user;
   return {
+    isAuthenticated,
+    isLoading,
     samples,
   }
 };

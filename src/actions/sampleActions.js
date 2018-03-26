@@ -2,6 +2,12 @@ import _ from 'underscore';
 import * as ActionTypes from './sampleActionTypes';
 import { apiEndpoint } from '../config-dev';
 
+export const clearSamples = () => {
+  return {
+    type: ActionTypes.CLEAR_SAMPLES,
+  }
+};
+
 export const requestSamples = () => {
   return {
     type: ActionTypes.REQUEST_SAMPLES,

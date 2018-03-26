@@ -10,6 +10,11 @@ const sampleReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case actionTypes.CLEAR_SAMPLES:
+      return {
+        ...initialState,
+      };
+
     case actionTypes.INJECT_SAMPLES:
       return {
         ...state,
