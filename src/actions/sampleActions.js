@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import * as ActionTypes from './sampleActionTypes';
 import { apiEndpoint } from '../config-dev';
 
@@ -51,4 +52,21 @@ export const fetchSamples = (jwt) => dispatch => {
           .then(json => dispatch(injectSamples(json.data.getSamples)));
       }
     });
+};
+
+const shouldFetchSamples = (state) => {
+  const data = state.data;
+  if (_.isEmpty(data.samples)) {
+    return true;
+  }
+  if (data.isLoading) {
+    return false;
+  }
+  return data.isInvalidated;
+};
+
+export const fetchSamplesIfNeeded = (jwt) => (dispatch, getState) => {
+  if (shouldFetchSamples(getState())) {
+    return dispatch(fetchSamples(jwt));
+  }
 };
