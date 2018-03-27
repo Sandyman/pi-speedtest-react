@@ -24,6 +24,7 @@ class Home extends Component {
 
     const empty = !samplesAvailable
     ? <Row>
+        <br/><br/><br/>
         <h3>Nothing to see here.</h3>
       </Row>
     : null;
@@ -77,6 +78,7 @@ class Home extends Component {
         <ButtonToolbar>
           <Button bsStyle='primary' disabled={isLoading} onClick={this.handleReload.bind(this)}>Refresh</Button>
         </ButtonToolbar>
+        <br/><br/><br/>
       </Row>
     : null;
 
