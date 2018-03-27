@@ -23,7 +23,6 @@ export const injectSamples = (samples = []) => {
   };
 };
 
-// Get beans by id
 const query = `
 query {
   getSamples {
