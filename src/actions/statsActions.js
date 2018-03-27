@@ -40,8 +40,11 @@ fragment stats on Stat {
 }
 `;
 
-export const fetchStats = () => dispatch => {
-  const callback = (json) => dispatch(injectStats(json.data.getStats));
+const fetchStats = () => dispatch => {
+  const callback = (json) => {
+    console.log(JSON.stringify(json.data, null, 3));
+    return dispatch(injectStats(json.data.getStats));
+  };
   dispatch(requestStats());
   return graphql({
       query: getStatsQuery,
@@ -49,4 +52,18 @@ export const fetchStats = () => dispatch => {
     },
     callback
   );
+};
+
+const shouldFetchStats = (state) => {
+  const { isLoading, stats } = state.stats;
+  if (stats !== null) {
+    return false;
+  }
+  return !isLoading;
+};
+
+export const fetchStatsIfNeeded = () => (dispatch, getState) => {
+  if (shouldFetchStats(getState())) {
+    return dispatch(fetchStats());
+  }
 };

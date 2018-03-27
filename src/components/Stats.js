@@ -12,7 +12,7 @@ const roundToMaxThreeDecimals = (n) => {
   const e = Math.min(2, Math.log10(n));
   const g = 2 - e;
   const f = Math.min(1000, Math.pow(10, Math.ceil(g)));
-  return Math.floor(n * f) / f;
+  return Math.round(n * f) / f;
 };
 
 class Stats extends Component {

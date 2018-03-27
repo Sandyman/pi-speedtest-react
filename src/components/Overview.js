@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from 'react-bootstrap';
 import Stats from './Stats';
-import { fetchStats } from '../actions/statsActions';
+import {bindActionCreators} from "redux";
+
+import * as statsActions from "../actions/statsActions";
 
 class Overview extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-
-    dispatch(fetchStats());
-  }
   render() {
-    const { stats } = this.props;
+    const { isAuthenticated, stats } = this.props;
     const { download, upload, ping } = stats || {
       download: {},
       upload: {},
       ping: {},
     };
+
+    if (isAuthenticated) {
+      this.props.statsActions.fetchStatsIfNeeded();
+    }
 
     return (
       <Grid>
@@ -38,10 +39,16 @@ class Overview extends Component {
 }
 
 const mapStateToProps = state => {
-  const { stats } = state.stats;
+  const { stats, user } = state;
+  const { isAuthenticated } = user;
   return {
-    stats,
+    isAuthenticated,
+    stats: stats.stats,
   }
 };
 
-export default connect(mapStateToProps)(Overview);
+const mapDispatchToProps = dispatch => ({
+  statsActions: bindActionCreators(statsActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Overview);
