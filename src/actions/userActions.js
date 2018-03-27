@@ -51,7 +51,7 @@ export const authoriseUser = (code, state) => dispatch => {
         response.json().then(json => {
           const jwtToken = json.token;
           const claims = decode(jwtToken);
-          sessionStorage.setItem('jwtToken', jwtToken);
+          window.sessionStorage.setItem('jwtToken', jwtToken);
           return dispatch(injectUser(claims));
         })
       }

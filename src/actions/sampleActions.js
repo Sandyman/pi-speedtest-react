@@ -35,7 +35,10 @@ query {
 }
 `;
 
-export const fetchSamples = (jwt) => dispatch => {
+export const fetchSamples = () => dispatch => {
+  const jwt = window.sessionStorage.getItem('jwtToken');
+  if (!jwt) return;
+
   const url = `${apiEndpoint}/graphql`;
   const graphqlBody = {
     query: query,
@@ -71,8 +74,8 @@ const shouldFetchSamples = (state) => {
   return data.isInvalidated;
 };
 
-export const fetchSamplesIfNeeded = (jwt) => (dispatch, getState) => {
+export const fetchSamplesIfNeeded = () => (dispatch, getState) => {
   if (shouldFetchSamples(getState())) {
-    return dispatch(fetchSamples(jwt));
+    return dispatch(fetchSamples());
   }
 };

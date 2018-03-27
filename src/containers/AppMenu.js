@@ -13,16 +13,14 @@ import * as sampleActions from '../actions/sampleActions';
 class AppMenu extends Component {
   componentDidMount() {
     let jwtToken;
-    if (sessionStorage) {
-      jwtToken = sessionStorage.getItem('jwtToken');
+    if (window.sessionStorage) {
+      jwtToken = window.sessionStorage.getItem('jwtToken');
       if (jwtToken) {
         const claims = decode(jwtToken);
         this.props.userActions.injectUser(claims);
-        this.props.sampleActions.fetchSamplesIfNeeded(jwtToken);
       }
     }
   }
-
 
   handleAccount() {
     this.props.history.push('/account');

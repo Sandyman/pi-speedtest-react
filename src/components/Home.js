@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'underscore';
 import { connect } from 'react-redux'
 import { Button, ButtonToolbar, Grid, Row } from 'react-bootstrap';
 import propTypes from 'prop-types';
@@ -8,28 +9,23 @@ import AppMenu from '../containers/AppMenu';
 import * as sampleActions from '../actions/sampleActions';
 
 class Home extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-
-    let jwtToken;
-    if (sessionStorage) {
-      jwtToken = sessionStorage.getItem('jwtToken');
-      if (jwtToken) {
-        dispatch(sampleActions.fetchSamplesIfNeeded(jwtToken));
-      }
-    }
-  }
-
   render() {
-    const { isAuthenticated, isLoading, samples } = this.props;
-
-    if (!isAuthenticated && !isLoading) {
-      this.props.history.push('/login');
-      return null;
+    const { dispatch, isAuthenticated, samples } = this.props;
+    if (isAuthenticated) {
+      dispatch(sampleActions.fetchSamplesIfNeeded());
     }
 
-    const chart = samples
-      ? <LineChart
+    const samplesAvailable = samples && !_.isEmpty(samples);
+
+    const empty = !samplesAvailable
+    ? <Row>
+        <h3>Nothing to see here.</h3>
+      </Row>
+    : null;
+
+    const downloadChart = samplesAvailable
+      ? <Row>
+        <LineChart
           samples={samples}
           options={{
             color: 'blue',
@@ -39,22 +35,56 @@ class Home extends Component {
           }}
           width={700}
           height={360} />
+        </Row>
       : null;
+    const uploadChart = samplesAvailable
+      ? <Row>
+        <LineChart
+          samples={samples}
+          options={{
+            color: 'purple',
+            xLabel: 'timestamp',
+            yLabel: 'upload',
+            title: 'Upload speed (Mbps)'
+          }}
+          width={700}
+          height={360} />
+        </Row>
+      : null;
+    const pingChart = samplesAvailable
+      ? <Row>
+        <LineChart
+          samples={samples}
+          options={{
+            color: 'red',
+            xLabel: 'timestamp',
+            yLabel: 'ping',
+            title: 'Ping delay (ms)'
+          }}
+          width={700}
+          height={360} />
+        </Row>
+      : null;
+
+    const button = samplesAvailable
+    ? <Row>
+        <br/><br/><br/>
+        <ButtonToolbar>
+          <Button bsStyle='primary'>Refresh</Button>
+        </ButtonToolbar>
+      </Row>
+    : null;
 
     return (
       <Grid bsClass="container">
         <Row>
           <AppMenu />
         </Row>
-        <Row>
-          <br/><br/><br/>
-          <ButtonToolbar>
-            <Button bsStyle='primary'>Refresh</Button>
-          </ButtonToolbar>
-        </Row>
-        <Row>
-          {chart}
-        </Row>
+        {empty}
+        {button}
+        {downloadChart}
+        {uploadChart}
+        {pingChart}
       </Grid>
     );
   }
@@ -69,10 +99,9 @@ Home.propTypes = {
 const mapStateToProps = (state) => {
   const { data, user } = state;
   const { samples } = data;
-  const { isAuthenticated, isLoading } = user;
+  const { isAuthenticated } = user;
   return {
     isAuthenticated,
-    isLoading,
     samples,
   }
 };
