@@ -1,7 +1,9 @@
 import React from 'react';
 import { Col, Grid, Panel, Row } from 'react-bootstrap';
 import AppMenu from '../containers/AppMenu';
+import Overview from './Overview';
 import Token from './Token'
+import User from './User';
 
 const Account = () => (
   <div>
@@ -12,12 +14,29 @@ const Account = () => (
       <Row>
         <Panel>
           <Col smOffset={1}>
-            <h3>Token</h3>
-            <br/>
+            <br/><h3>User</h3><br/>
           </Col>
-        <Token />
-        <br/>
-      </Panel>
+          <User />
+          <br/>
+        </Panel>
+      </Row>
+      <Row>
+        <Panel>
+          <Col smOffset={1}>
+            <br/><h3>Token</h3><br/>
+          </Col>
+          <Token />
+          <br/>
+        </Panel>
+      </Row>
+      <Row>
+        <Panel>
+          <Col smOffset={1}>
+            <br/><h3>Overview</h3><br/>
+          </Col>
+          <Overview />
+          <br/>
+        </Panel>
       </Row>
     </Grid>
   </div>

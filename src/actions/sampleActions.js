@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import * as ActionTypes from './sampleActionTypes';
-import { apiEndpoint } from '../config-dev';
+import { graphql } from "./utils";
 
 export const clearSamples = () => {
   return {
@@ -23,7 +23,7 @@ export const injectSamples = (samples = []) => {
   };
 };
 
-const query = `
+const getSamplesQuery = `
 query {
   getSamples {
     upload
@@ -35,31 +35,14 @@ query {
 `;
 
 const fetchSamples = () => dispatch => {
-  const jwt = window.sessionStorage.getItem('jwtToken');
-  if (!jwt) return;
-
-  const url = `${apiEndpoint}/graphql`;
-  const graphqlBody = {
-    query: query,
-    variables: { }
-  };
-  const header = {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${jwt}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(graphqlBody)
-  };
+  const callback = (json) => dispatch(injectSamples(json.data.getSamples));
   dispatch(requestSamples());
-  return fetch(url, header)
-    .then(response => {
-      if (response.ok) {
-        response.json()
-          .then(json => dispatch(injectSamples(json.data.getSamples)));
-      }
-    });
+  return graphql({
+      query: getSamplesQuery,
+      variables: { },
+    },
+    callback
+  );
 };
 
 const shouldFetchSamples = (state) => {
