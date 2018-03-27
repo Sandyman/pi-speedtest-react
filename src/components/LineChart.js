@@ -14,6 +14,7 @@ const colors = {
   blue: [33,36,199],
   red: [199,33,36],
   green: [33,199,36],
+  purple: [160,32,240],
 };
 
 const getColor = c => (colors[c]);
@@ -102,6 +103,7 @@ const getChartOptions = ({ title, color }) => ({
       position: "left",
       ticks: {
         fontColor: `rgba(${withHue(0.4)(color)})`,
+        suggestedMin: 0,
       },
     }]
   }
@@ -109,20 +111,21 @@ const getChartOptions = ({ title, color }) => ({
 
 class LineChart extends Component {
   render() {
-    const { options, samples } = this.props;
+    const { height, options, samples, width } = this.props;
     const chartData = samplesToChartData(samples, options);
     const chartOptions = getChartOptions(options);
     return (
       <Line
         data={chartData}
         options={chartOptions}
-        width={700}
-        height={420} />
+        width={width}
+        height={height} />
     );
   }
 }
 
 LineChart.propTypes = {
+  options: propTypes.object,
   samples: propTypes.array,
 };
 
