@@ -15,6 +15,7 @@ const colors = {
   red: [199,33,36],
   green: [33,199,36],
   purple: [160,32,240],
+  grey: [220,220,220],
 };
 
 const getColor = c => (colors[c]);
@@ -90,19 +91,18 @@ const getChartOptions = ({ title, color }) => ({
   scales: {
     xAxes: [{
       gridLines: {
-        color: `rgba(${withHue(0.4)(color)})`,
+        color: `rgba(${withHue(0.5)(color)})`,
       },
       stacked: false
     }],
     yAxes: [{
       gridLines: {
-        color: `rgba(${withHue(0.4)(color)})`,
+        color: `rgba(${withHue(0.5)(color)})`,
       },
       scalePositionLeft: true,
       stacked: false,
       position: "left",
       ticks: {
-        fontColor: `rgba(${withHue(0.4)(color)})`,
         suggestedMin: 0,
       },
     }]
