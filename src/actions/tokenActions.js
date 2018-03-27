@@ -81,7 +81,7 @@ const fetchToken = () => dispatch => {
 
 const shouldFetchToken = (state) => {
   const { isLoading, token } = state.token;
-  if (token) {
+  if (token !== null) {
     return false;
   }
   return !isLoading;
