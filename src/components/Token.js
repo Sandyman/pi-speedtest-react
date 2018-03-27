@@ -20,8 +20,7 @@ class Token extends Component {
 
     const tooltip = <Tooltip placement="bottom" className="in" id="tooltip-bottom">
       The token is the way to authenticate your data when you're running an actual speedtest.
-      Copy this string and place it in a file <code>~/.st/config</code> like so:
-      <code>token: {'<token>'}</code>.
+      Copy this string and place it in a file <code>~/.st/config</code> like so: <code>token: {'<token>'}</code>.
     </Tooltip>;
 
     return (
