@@ -10,10 +10,8 @@ const Account = () => (
     </Row>
     <Col>
       <h1>Account</h1>
-    </Col>
-    <Row>
       <br/>
-    </Row>
+    </Col>
     <Row>
       <Well>
         <Col smOffset={1}>

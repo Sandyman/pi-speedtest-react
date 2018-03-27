@@ -2,6 +2,12 @@ import { apiEndpoint } from "../config-dev";
 
 import * as ActionTypes from './tokenActionTypes';
 
+export const createToken = () => {
+  return {
+    type: ActionTypes.CREATE_TOKEN,
+  }
+};
+
 export const requestToken = () => {
   return {
     type: ActionTypes.REQUEST_TOKEN,
@@ -17,7 +23,15 @@ export const injectToken = (token = null) => {
   }
 };
 
-const query = `
+const createTokenMutation = `
+mutation {
+  createToken {
+    token
+  }
+}
+`;
+
+const getTokenQuery = `
 query {
   getToken {
     token
@@ -25,14 +39,14 @@ query {
 }
 `;
 
-const fetchToken = () => dispatch => {
+const graphql = ({query, variables}, callback) => {
   const jwt = window.sessionStorage.getItem('jwtToken');
   if (!jwt) return;
 
   const url = `${apiEndpoint}/graphql`;
   const graphqlBody = {
-    query: query,
-    variables: { }
+    query,
+    variables,
   };
   const header = {
     method: 'POST',
@@ -43,14 +57,23 @@ const fetchToken = () => dispatch => {
     },
     body: JSON.stringify(graphqlBody)
   };
-  dispatch(requestToken());
   return fetch(url, header)
     .then(response => {
       if (response.ok) {
-        response.json()
-          .then(json => dispatch(injectToken(json.data.getToken.token)));
+        response.json().then(callback);
       }
     });
+};
+
+const fetchToken = () => dispatch => {
+  const callback = (json) => dispatch(injectToken(json.data.getToken.token));
+  dispatch(requestToken());
+  return graphql({
+      query: getTokenQuery,
+      variables: { },
+    },
+    callback
+  );
 };
 
 const shouldFetchToken = (state) => {
@@ -65,4 +88,15 @@ export const fetchTokenIfNeeded = () => (dispatch, getState) => {
   if (shouldFetchToken(getState())) {
     return dispatch(fetchToken());
   }
+};
+
+export const createNewToken = () => (dispatch) => {
+  const callback = (json) => dispatch(injectToken(json.data.createToken.token));
+  dispatch(createToken());
+  return graphql({
+      query: createTokenMutation,
+      variables: { },
+    },
+    callback
+  );
 };

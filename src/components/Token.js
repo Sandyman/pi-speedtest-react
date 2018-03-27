@@ -14,7 +14,7 @@ class Token extends Component {
   }
 
   handleRefresh() {
-    console.log('Refresh');
+    this.props.tokenActions.createNewToken();
   }
 
   render() {
@@ -27,7 +27,8 @@ class Token extends Component {
     </Popover>;
 
     const tooltip = <Tooltip id="tooltip-right">
-      Use this button to refresh your authentication token.
+      Use this button to refresh your authentication token.<br/>
+      This will invalidate your old token, so make sure you know this is what you want.
     </Tooltip>;
 
     return (

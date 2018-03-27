@@ -9,6 +9,12 @@ const tokenReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case actionTypes.CREATE_TOKEN:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
     case actionTypes.INJECT_TOKEN:
       return {
         ...state,
