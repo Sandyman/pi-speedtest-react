@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { Button, Col, ControlLabel, Form, FormControl, FormGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import {
+  Button, Col, ControlLabel, Form, FormControl, FormGroup, OverlayTrigger, Popover, Tooltip
+} from 'react-bootstrap';
 import { bindActionCreators } from "redux";
 
 import * as tokenActions from '../actions/tokenActions';
@@ -18,9 +20,14 @@ class Token extends Component {
   render() {
     const { isLoading, token } = this.props;
 
-    const tooltip = <Tooltip placement="bottom" className="in" id="tooltip-bottom">
-      The token is the way to authenticate your data when you're running an actual speedtest.
-      Copy this string and place it in a file <code>~/.st/config</code> like so: <code>token: {'<token>'}</code>.
+    const popover = <Popover id="popover-positioned-bottom" title="Authentication token">
+      We use this token to authenticate you when the speedtest uploads your results.
+      Copy this string and place it in a file <code>~/.st/config</code> like so:<br/><br/>
+      <code>token: {token ? token.substring(0,18) : ''}...</code>
+    </Popover>;
+
+    const tooltip = <Tooltip id="tooltip-right">
+      Use this button to refresh your authentication token.
     </Tooltip>;
 
     return (
@@ -30,12 +37,14 @@ class Token extends Component {
             Token
           </Col>
           <Col sm={6}>
-            <OverlayTrigger placement="bottom" overlay={tooltip}>
+            <OverlayTrigger placement="bottom" overlay={popover}>
             <FormControl.Static>{token ? token : 'Your token will show up here'}</FormControl.Static>
             </OverlayTrigger>
           </Col>
           <Col sm={2}>
-            <Button bsStyle='warning' disabled={isLoading} onClick={this.handleRefresh.bind(this)}>Refresh</Button>
+            <OverlayTrigger placement="right" overlay={tooltip}>
+              <Button bsStyle='warning' disabled={isLoading} onClick={this.handleRefresh.bind(this)}>Refresh</Button>
+            </OverlayTrigger>
           </Col>
         </FormGroup>
         {/*<FormGroup>*/}

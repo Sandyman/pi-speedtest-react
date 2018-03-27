@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux'
-import { Button, ButtonToolbar, Grid, Row } from 'react-bootstrap';
+import {
+  Button, ButtonToolbar, Grid, OverlayTrigger, Row, Tooltip
+} from 'react-bootstrap';
 import propTypes from 'prop-types';
 import LineChart from './LineChart';
 import AppMenu from '../containers/AppMenu';
@@ -19,6 +21,10 @@ class Home extends Component {
     if (isAuthenticated) {
       this.props.sampleActions.fetchSamplesIfNeeded();
     }
+
+    const tooltip = <Tooltip id="tooltip-right">
+      Use this button to reload the sample data.
+    </Tooltip>;
 
     const samplesAvailable = samples && !_.isEmpty(samples);
 
@@ -76,7 +82,9 @@ class Home extends Component {
     ? <Row>
         <br/><br/><br/>
         <ButtonToolbar>
-          <Button bsStyle='primary' disabled={isLoading} onClick={this.handleReload.bind(this)}>Refresh</Button>
+          <OverlayTrigger placement="right" overlay={tooltip}>
+            <Button bsStyle='primary' disabled={isLoading} onClick={this.handleReload.bind(this)}>Refresh</Button>
+          </OverlayTrigger>
         </ButtonToolbar>
         <br/><br/><br/>
       </Row>
