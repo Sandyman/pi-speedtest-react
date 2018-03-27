@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Button, Grid, Jumbotron, Media, Navbar, Row } from 'react-bootstrap';
 import { toQuery, } from '../util/utils';
 import createState from '../util/state';
@@ -36,14 +36,6 @@ const getWindowOptions = () => {
 };
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      redirectToHome: false,
-    };
-  }
-
   handleLogin() {
     const secretState = createState();
     const qs = toQuery({
@@ -63,21 +55,13 @@ class Login extends Component {
         const { code, state } = response;
         this.props.userActions.authoriseUser(code, state);
         setTimeout(() => {
-          this.setState({
-            redirectToHome: true,
-          })
+          this.props.history.push('/account');
         }, 500);
       })
       .catch(console.log);
   }
 
   render() {
-    if (this.state.redirectToHome) {
-      return (
-        <Redirect exact to='/'/>
-      );
-    }
-
     return (
       <Grid bsClass="container">
         <Row>
@@ -136,4 +120,4 @@ const mapDispatchToProps = dispatch => ({
   userActions: bindActionCreators(userActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
