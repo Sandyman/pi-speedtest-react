@@ -73,8 +73,8 @@ class Chart extends Component {
             yLabel: 'ping',
             title: 'Ping delay (ms)'
           }}
-          width={700}
-          height={360} />
+          width={600}
+          height={320} />
         </Row>
       : null;
 

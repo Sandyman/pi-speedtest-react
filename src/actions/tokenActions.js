@@ -66,7 +66,10 @@ const graphql = ({query, variables}, callback) => {
 };
 
 const fetchToken = () => dispatch => {
-  const callback = (json) => dispatch(injectToken(json.data.getToken.token));
+  const callback = (json) => {
+    const token = json.data.getToken ? json.data.getToken.token : '';
+    return dispatch(injectToken(token));
+  };
   dispatch(requestToken());
   return graphql({
       query: getTokenQuery,

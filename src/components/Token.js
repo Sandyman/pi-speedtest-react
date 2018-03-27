@@ -10,16 +10,16 @@ import * as sampleActions from '../actions/sampleActions';
 import * as tokenActions from '../actions/tokenActions';
 
 class Token extends Component {
+  componentDidMount() {
+    this.props.tokenActions.fetchTokenIfNeeded();
+  }
+
   handleRefresh() {
     this.props.tokenActions.createNewToken();
   }
 
   render() {
-    const { isAuthenticated, isLoading, token } = this.props;
-
-    if (isAuthenticated) {
-      this.props.tokenActions.fetchTokenIfNeeded();
-    }
+    const { isLoading, token } = this.props;
 
     const popover = <Popover id="popover-positioned-bottom" title="Authentication token">
       We use this token to authenticate you when the speedtest uploads your results.
