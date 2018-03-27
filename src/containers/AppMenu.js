@@ -26,6 +26,10 @@ class AppMenu extends Component {
     this.props.history.push('/account');
   }
 
+  handleCharts() {
+    this.props.history.push('/charts');
+  }
+
   handleLogin() {
     this.props.history.push('/login');
   }
@@ -41,7 +45,9 @@ class AppMenu extends Component {
 
     const loginButton = isAuthenticated ?
       <NavDropdown title={isAuthenticated ? currentUser.name : ''} id="basic-nav-dropdown">
+        <MenuItem onClick={this.handleCharts.bind(this)}>Charts</MenuItem>
         <MenuItem onClick={this.handleAccount.bind(this)}>Account</MenuItem>
+        <MenuItem divider />
         <MenuItem onClick={this.handleLogout.bind(this)}>Log Out</MenuItem>
       </NavDropdown>
       :
