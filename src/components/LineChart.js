@@ -91,13 +91,13 @@ const getChartOptions = ({ title, color }) => ({
   scales: {
     xAxes: [{
       gridLines: {
-        color: `rgba(${withHue(0.5)(color)})`,
+        color: `rgba(${withHue(0.3)(color)})`,
       },
       stacked: false
     }],
     yAxes: [{
       gridLines: {
-        color: `rgba(${withHue(0.5)(color)})`,
+        color: `rgba(${withHue(0.3)(color)})`,
       },
       scalePositionLeft: true,
       stacked: false,
