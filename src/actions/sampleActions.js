@@ -35,7 +35,7 @@ query {
 }
 `;
 
-export const fetchSamples = () => dispatch => {
+const fetchSamples = () => dispatch => {
   const jwt = window.sessionStorage.getItem('jwtToken');
   if (!jwt) return;
 
@@ -53,7 +53,7 @@ export const fetchSamples = () => dispatch => {
     },
     body: JSON.stringify(graphqlBody)
   };
-  dispatch(requestSamples);
+  dispatch(requestSamples());
   return fetch(url, header)
     .then(response => {
       if (response.ok) {
@@ -74,8 +74,8 @@ const shouldFetchSamples = (state) => {
   return data.isInvalidated;
 };
 
-export const fetchSamplesIfNeeded = () => (dispatch, getState) => {
-  if (shouldFetchSamples(getState())) {
+export const fetchSamplesIfNeeded = (force) => (dispatch, getState) => {
+  if (!!force || shouldFetchSamples(getState())) {
     return dispatch(fetchSamples());
   }
 };

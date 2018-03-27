@@ -7,12 +7,17 @@ import LineChart from './LineChart';
 import AppMenu from '../containers/AppMenu';
 
 import * as sampleActions from '../actions/sampleActions';
+import { bindActionCreators } from 'redux';
 
 class Home extends Component {
+  handleReload() {
+    this.props.sampleActions.fetchSamplesIfNeeded(true);
+  }
+
   render() {
-    const { dispatch, isAuthenticated, samples } = this.props;
+    const { isLoading, isAuthenticated, samples } = this.props;
     if (isAuthenticated) {
-      dispatch(sampleActions.fetchSamplesIfNeeded());
+      this.props.sampleActions.fetchSamplesIfNeeded();
     }
 
     const samplesAvailable = samples && !_.isEmpty(samples);
@@ -70,7 +75,7 @@ class Home extends Component {
     ? <Row>
         <br/><br/><br/>
         <ButtonToolbar>
-          <Button bsStyle='primary'>Refresh</Button>
+          <Button bsStyle='primary' disabled={isLoading} onClick={this.handleReload.bind(this)}>Refresh</Button>
         </ButtonToolbar>
       </Row>
     : null;
@@ -98,12 +103,17 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => {
   const { data, user } = state;
-  const { samples } = data;
+  const { isLoading, samples } = data;
   const { isAuthenticated } = user;
   return {
     isAuthenticated,
+    isLoading,
     samples,
   }
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = dispatch => ({
+  sampleActions: bindActionCreators(sampleActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
