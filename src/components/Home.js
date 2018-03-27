@@ -79,7 +79,7 @@ class Home extends Component {
       : null;
 
     const button = samplesAvailable
-    ? <Row>
+    ? <Row className="pull-right">
         <br/><br/><br/>
         <ButtonToolbar>
           <OverlayTrigger placement="right" overlay={tooltip}>
@@ -91,16 +91,18 @@ class Home extends Component {
     : null;
 
     return (
-      <Grid bsClass="container">
-        <Row>
-          <AppMenu />
-        </Row>
-        {empty}
-        {button}
-        {downloadChart}
-        {uploadChart}
-        {pingChart}
-      </Grid>
+      <div>
+        <AppMenu />
+        <Grid bsClass="container">
+          <h2>Charts</h2>
+          <br/><br/>
+          {empty}
+          {button}
+          {downloadChart}
+          {uploadChart}
+          {pingChart}
+        </Grid>
+      </div>
     );
   }
 }

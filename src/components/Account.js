@@ -1,27 +1,26 @@
 import React from 'react';
-import { Col, Grid, Row, Well } from 'react-bootstrap';
+import { Col, Grid, Panel, Row } from 'react-bootstrap';
 import AppMenu from '../containers/AppMenu';
 import Token from './Token'
 
 const Account = () => (
-  <Grid bsClass="container">
-    <Row>
-      <AppMenu />
-    </Row>
-    <Col>
-      <h1>Account</h1>
-      <br/>
-    </Col>
-    <Row>
-      <Well>
-        <Col smOffset={1}>
-        <h3>Token</h3>
-        <br/>
-        </Col>
+  <div>
+    <AppMenu />
+    <Grid bsClass="container">
+      <h2>Account</h2>
+      <br/><br/>
+      <Row>
+        <Panel>
+          <Col smOffset={1}>
+            <h3>Token</h3>
+            <br/>
+          </Col>
         <Token />
-      </Well>
-    </Row>
-  </Grid>
+        <br/>
+      </Panel>
+      </Row>
+    </Grid>
+  </div>
 );
 
 export default Account;
