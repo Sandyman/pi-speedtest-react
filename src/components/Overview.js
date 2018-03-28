@@ -7,6 +7,10 @@ import Stats from './Stats';
 import * as statsActions from '../actions/statsActions';
 
 class Overview extends Component {
+  componentDidMount() {
+    this.props.statsActions.fetchStatsIfNeeded();
+  }
+
   handleRefresh() {
     this.props.statsActions.fetchStatsIfNeeded(true);
   }

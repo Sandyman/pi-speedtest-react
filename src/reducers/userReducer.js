@@ -1,10 +1,13 @@
+import { decode } from 'jsonwebtoken';
 import * as ActionTypes from '../actions/userActionTypes';
 
+const { localStorage } = window;
+
 export const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem('jwt'),
   isInvalidated: false,
   isLoading: false,
-  user: {}
+  user: localStorage.getItem('jwt') ? decode(localStorage.getItem('jwt')) : {},
 };
 
 const userReducer = (state = initialState, action) => {

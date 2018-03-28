@@ -14,14 +14,16 @@ import * as statsActions from '../actions/statsActions';
 
 class AppMenu extends Component {
   componentDidMount() {
-    let jwtToken;
-    if (window.sessionStorage) {
-      jwtToken = window.sessionStorage.getItem('jwtToken');
-      if (jwtToken) {
-        const claims = decode(jwtToken);
-        this.props.userActions.injectUser(claims);
-        this.props.tokenActions.fetchTokenIfNeeded();
-        this.props.statsActions.fetchStatsIfNeeded();
+    const { isAuthenticated } = this.props;
+
+    if (!isAuthenticated) {
+      let jwtToken;
+      if (window.localStorage) {
+        jwtToken = window.localStorage.getItem('jwtToken');
+        if (jwtToken) {
+          const claims = decode(jwtToken);
+          this.props.userActions.injectUser(claims);
+        }
       }
     }
   }

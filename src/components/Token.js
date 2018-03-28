@@ -19,6 +19,10 @@ class Token extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.tokenActions.fetchTokenIfNeeded();
+  }
+
   handleClose() {
     this.setState({
       showModal: false,

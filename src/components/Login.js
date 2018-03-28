@@ -10,7 +10,7 @@ import NavbarHeader from './NavbarHeader';
 import popupWindow from '../util/openWindow';
 import * as userActions from '../actions/userActions';
 // import { decode } from "jsonwebtoken";
-import { redirectUrl } from "../config";
+import { clientId, redirectUrl } from "../config";
 
 import icon from '../github-icon-2.png';
 
@@ -40,7 +40,7 @@ class Login extends Component {
   handleLogin() {
     const secretState = createState();
     const qs = toQuery({
-      client_id: 'd7af928a33075b0c817c',
+      client_id: clientId,
       scope: 'user',
       state: secretState,
       redirect_uri: redirectUrl,
@@ -54,19 +54,22 @@ class Login extends Component {
       .then(response => {
         const { code, state } = response;
         this.props.userActions.authoriseUser(code, state);
-        setTimeout(() => {
-          this.props.history.push('/account');
-        }, 500);
       })
       .catch(console.log);
   }
 
   render() {
+    const { isAuthenticated } = this.props;
+    if (isAuthenticated) {
+      this.props.history.push('/account');
+      return null;
+    }
+
     return (
       <Grid bsClass="container">
         <Row>
           <Navbar>
-            <NavbarHeader />
+            <NavbarHeader/>
           </Navbar>
         </Row>
         <Row>
@@ -76,14 +79,15 @@ class Login extends Component {
           <Jumbotron>
             <Media>
               <Media.Left>
-                <img width={288} height={240} src={icon} alt="Purrrr" />
+                <img width={288} height={240} src={icon} alt="Purrrr"/>
               </Media.Left>
               <Media.Body>
                 <Media.Heading>
                   Log in using GitHub<br/><br/>
                 </Media.Heading>
                 <p>
-                  For now, we only support logging in using GitHub. No need to set up an account or anything, simply click
+                  For now, we only support logging in using GitHub. No need to set up an account or anything, simply
+                  click
                   the button below and follow the prompts.
                   <br/>
                   Easy does it.
