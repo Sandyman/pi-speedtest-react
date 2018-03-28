@@ -1,5 +1,3 @@
-import { fetchTokenIfNeeded } from "./tokenActions";
-import { fetchStatsIfNeeded } from "./statsActions";
 import * as ActionTypes from './userActionTypes';
 import { decode }  from 'jsonwebtoken';
 import { apiEndpoint } from '../config-dev';
@@ -61,8 +59,6 @@ export const authoriseUser = (code, state) => dispatch => {
           const claims = decode(jwtToken);
           window.sessionStorage.setItem('jwtToken', jwtToken);
           dispatch(injectUser(claims));
-          dispatch(fetchTokenIfNeeded());
-          dispatch(fetchStatsIfNeeded());
         })
       }
     })

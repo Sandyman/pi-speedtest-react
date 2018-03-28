@@ -9,6 +9,8 @@ import NavbarHeader from '../components/NavbarHeader';
 
 import * as userActions from '../actions/userActions';
 import * as sampleActions from '../actions/sampleActions';
+import * as tokenActions from '../actions/tokenActions';
+import * as statsActions from '../actions/statsActions';
 
 class AppMenu extends Component {
   componentDidMount() {
@@ -18,6 +20,8 @@ class AppMenu extends Component {
       if (jwtToken) {
         const claims = decode(jwtToken);
         this.props.userActions.injectUser(claims);
+        this.props.tokenActions.fetchTokenIfNeeded();
+        this.props.statsActions.fetchStatsIfNeeded();
       }
     }
   }
@@ -88,7 +92,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   sampleActions: bindActionCreators(sampleActions, dispatch),
-  userActions: bindActionCreators(userActions, dispatch)
+  statsActions: bindActionCreators(statsActions, dispatch),
+  tokenActions: bindActionCreators(tokenActions, dispatch),
+  userActions: bindActionCreators(userActions, dispatch),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppMenu));
