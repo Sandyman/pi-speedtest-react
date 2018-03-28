@@ -1,4 +1,4 @@
-import {apiEndpoint} from "../config-dev";
+import {apiEndpoint} from "../config";
 
 export const graphql = ({query, variables}, callback) => {
   const jwt = window.sessionStorage.getItem('jwtToken');

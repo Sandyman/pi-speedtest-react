@@ -10,6 +10,7 @@ import NavbarHeader from './NavbarHeader';
 import popupWindow from '../util/openWindow';
 import * as userActions from '../actions/userActions';
 // import { decode } from "jsonwebtoken";
+import { redirectUrl } from "../config";
 
 import icon from '../github-icon-2.png';
 
@@ -42,7 +43,7 @@ class Login extends Component {
       client_id: 'd7af928a33075b0c817c',
       scope: 'user',
       state: secretState,
-      redirect_uri: 'http://app.pi-speedtest.net/auth/callback',
+      redirect_uri: redirectUrl,
     });
     const popup = popupWindow.open(
       secretState,

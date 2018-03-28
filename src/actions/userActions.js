@@ -1,6 +1,6 @@
 import * as ActionTypes from './userActionTypes';
 import { decode }  from 'jsonwebtoken';
-import { apiEndpoint } from '../config-dev';
+import { apiEndpoint } from '../config';
 
 export const deleteUser = () => {
   return {

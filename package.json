@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && cp build/index.html build/404.html",
-    "deploy": "npm run build && netlify deploy",
+    "deploy": "cd src && ln -sf config-prod.json config.json && cd .. && npm run build && netlify deploy && cd src && ln -sf config-dev.json config.json && cd ..",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
