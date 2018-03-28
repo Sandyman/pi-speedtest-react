@@ -6,7 +6,7 @@ class NavbarHeader extends Component {
   render() {
     return (
       <Navbar.Header>
-        <Navbar.Brand onClick={() => this.props.history.push('/')}>
+        <Navbar.Brand>
           Raspberry Pi Speedtest
         </Navbar.Brand>
       </Navbar.Header>

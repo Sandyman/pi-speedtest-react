@@ -12,15 +12,16 @@ import * as sampleActions from '../actions/sampleActions';
 import { bindActionCreators } from 'redux';
 
 class Chart extends Component {
+  componentDidMount() {
+    this.props.sampleActions.fetchSamplesIfNeeded();
+  }
+
   handleReload() {
     this.props.sampleActions.fetchSamplesIfNeeded(true);
   }
 
   render() {
-    const { isLoading, isAuthenticated, samples } = this.props;
-    if (isAuthenticated) {
-      this.props.sampleActions.fetchSamplesIfNeeded();
-    }
+    const { isLoading, samples } = this.props;
 
     const tooltip = <Tooltip id="tooltip-right">
       Use this button to reload the sample data.
@@ -28,10 +29,11 @@ class Chart extends Component {
 
     const samplesAvailable = samples && !_.isEmpty(samples);
 
+    const emptyMsg = isLoading ? 'Loading data. Please wait...' : 'Nothing to see here.';
     const empty = !samplesAvailable
     ? <Row>
         <br/><br/><br/>
-        <h3>Nothing to see here.</h3>
+        <h3>{emptyMsg}</h3>
       </Row>
     : null;
 
@@ -107,17 +109,14 @@ class Chart extends Component {
 }
 
 Chart.propTypes = {
-  isAuthenticated: propTypes.bool,
   isLoading: propTypes.bool,
   samples: propTypes.array,
 };
 
 const mapStateToProps = (state) => {
-  const { data, user } = state;
+  const { data } = state;
   const { isLoading, samples } = data;
-  const { isAuthenticated } = user;
   return {
-    isAuthenticated,
     isLoading,
     samples,
   }

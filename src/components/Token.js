@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import {
-  Button, Col, ControlLabel, Form, FormControl, FormGroup, OverlayTrigger, Popover, Tooltip
+  Button, Col, ControlLabel, Form, FormControl, FormGroup, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import { bindActionCreators } from "redux";
 
-import * as sampleActions from '../actions/sampleActions';
 import * as tokenActions from '../actions/tokenActions';
 
 class Token extends Component {
@@ -15,20 +14,10 @@ class Token extends Component {
   }
 
   render() {
-    const { isAuthenticated, isLoading, token } = this.props;
-
-    if (isAuthenticated) {
-      this.props.tokenActions.fetchTokenIfNeeded();
-    }
-
-    const popover = <Popover id="popover-positioned-bottom" title="Authentication token">
-      We use this token to authenticate you when the speedtest uploads your results.
-      Copy this string and place it in a file <code>~/.st/config</code> like so:<br/><br/>
-      <code>token: {token ? token.substring(0,18) : ''}...</code>
-    </Popover>;
+    const { isLoading, token } = this.props;
 
     const tooltip = <Tooltip id="tooltip-right">
-      Use this button to refresh your authentication token.<br/>
+      Use this button to generate a new authentication token.
       This will invalidate your old token, so make sure you know this is what you want.
     </Tooltip>;
 
@@ -39,16 +28,23 @@ class Token extends Component {
             Token
           </Col>
           <Col sm={6}>
-            <OverlayTrigger placement="bottom" overlay={popover}>
             <FormControl.Static>{token ? token : 'Your token will show up here'}</FormControl.Static>
-            </OverlayTrigger>
           </Col>
           <Col sm={2}>
             <OverlayTrigger placement="right" overlay={tooltip}>
-              <Button bsStyle='warning' disabled={isLoading} onClick={this.handleRefresh.bind(this)}>Refresh</Button>
+              <Button bsStyle='warning' disabled={isLoading} onClick={this.handleRefresh.bind(this)}>Regenerate</Button>
             </OverlayTrigger>
           </Col>
         </FormGroup>
+        <Col smOffset={1}>
+          <br/>
+          <p>
+            We use this token to authenticate you when the speedtest uploads your results.<br/>
+            Copy this string and place it in a file <code>~/.st/config</code> like so: <br/><br/>
+            <code>token: {token || '...'}</code>
+            <br/><br/>
+          </p>
+        </Col>
         {/*<FormGroup>*/}
           {/*<Col smOffset={2} sm={6}>*/}
             {/*<Button bsStyle="danger">Delete</Button>*/}
@@ -60,25 +56,20 @@ class Token extends Component {
 }
 
 Token.propTypes = {
-  isAuthenticated: propTypes.bool,
   isLoading: propTypes.bool,
   token: propTypes.string,
 };
 
 const mapStateToProps = state => {
-  const { isAuthenticated } = state.user;
   const { isLoading, token } = state.token;
   return {
-    isAuthenticated,
     isLoading,
     token,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  sampleActions: bindActionCreators(sampleActions, dispatch),
   tokenActions: bindActionCreators(tokenActions, dispatch),
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Token);

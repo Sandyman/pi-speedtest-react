@@ -1,3 +1,4 @@
+export const DELETE = 'DELETE_USER';
 export const INJECT = 'INJECT_USER';
 export const LOGOUT = 'LOGOUT_USER';
 export const REQUEST = 'REQUEST_USER';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Grid, Panel, Row } from 'react-bootstrap';
 import AppMenu from '../containers/AppMenu';
+import Danger from './Danger';
 import Overview from './Overview';
 import Token from './Token'
 import User from './User';
@@ -32,9 +33,18 @@ const Account = () => (
       <Row>
         <Panel>
           <Col smOffset={1}>
-            <br/><h3>Overview</h3><br/>
+            <br/><h3>Connection statistics</h3><br/>
           </Col>
           <Overview />
+          <br/>
+        </Panel>
+      </Row>
+      <Row>
+        <Panel>
+          <Col smOffset={1}>
+            <br/><h3>Danger zone</h3><br/>
+          </Col>
+          <Danger />
           <br/>
         </Panel>
       </Row>

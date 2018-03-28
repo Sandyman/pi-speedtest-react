@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/userActionTypes';
+import * as ActionTypes from '../actions/userActionTypes';
 
 export const initialState = {
   isAuthenticated: false,
@@ -11,7 +11,12 @@ const userReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case actionTypes.INJECT:
+    case ActionTypes.DELETE:
+      return {
+        ...initialState,
+      };
+
+    case ActionTypes.INJECT:
       return {
         ...state,
         isAuthenticated: true,
@@ -20,18 +25,18 @@ const userReducer = (state = initialState, action) => {
         user: payload.user
       };
 
-    case actionTypes.LOGOUT:
+    case ActionTypes.LOGOUT:
       return {
         ...initialState,
       };
 
-    case actionTypes.REFRESH:
+    case ActionTypes.REFRESH:
       return {
         ...state,
         isInvalidated: true,
       };
 
-    case actionTypes.REQUEST:
+    case ActionTypes.REQUEST:
       return {
         ...state,
         isLoading: true,

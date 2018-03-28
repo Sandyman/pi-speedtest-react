@@ -41,10 +41,7 @@ fragment stats on Stat {
 `;
 
 const fetchStats = () => dispatch => {
-  const callback = (json) => {
-    console.log(JSON.stringify(json.data, null, 3));
-    return dispatch(injectStats(json.data.getStats));
-  };
+  const callback = (json) => dispatch(injectStats(json.data.getStats));
   dispatch(requestStats());
   return graphql({
       query: getStatsQuery,
@@ -62,8 +59,8 @@ const shouldFetchStats = (state) => {
   return !isLoading;
 };
 
-export const fetchStatsIfNeeded = () => (dispatch, getState) => {
-  if (shouldFetchStats(getState())) {
+export const fetchStatsIfNeeded = (force) => (dispatch, getState) => {
+  if (!!force || shouldFetchStats(getState())) {
     return dispatch(fetchStats());
   }
 };

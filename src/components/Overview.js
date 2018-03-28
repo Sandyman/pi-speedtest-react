@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid } from 'react-bootstrap';
+import { Button, Col, Grid, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import { bindActionCreators } from "redux";
 import Stats from './Stats';
-import {bindActionCreators} from "redux";
 
-import * as statsActions from "../actions/statsActions";
+import * as statsActions from '../actions/statsActions';
 
 class Overview extends Component {
+  handleRefresh() {
+    this.props.statsActions.fetchStatsIfNeeded(true);
+  }
+
   render() {
-    const { isAuthenticated, stats } = this.props;
+    const { isLoading, stats } = this.props;
     const { download, upload, ping } = stats || {
       download: {},
       upload: {},
       ping: {},
     };
 
-    if (isAuthenticated) {
-      this.props.statsActions.fetchStatsIfNeeded();
-    }
+    const tooltip = <Tooltip id="tooltip-right">
+      Use this button to reload the statistics.
+    </Tooltip>;
 
     return (
       <Grid>
@@ -33,16 +37,22 @@ class Overview extends Component {
           title={'Ping (ms)'}
           stats={ping}
         />
+        <Row>
+          <Col smOffset={1}>
+            <OverlayTrigger placement="right" overlay={tooltip}>
+              <Button bsStyle="primary" className="pull-left" disabled={isLoading} onClick={this.handleRefresh.bind(this)}>Refresh</Button>
+            </OverlayTrigger>
+          </Col>
+        </Row>
       </Grid>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { stats, user } = state;
-  const { isAuthenticated } = user;
+  const { stats } = state;
   return {
-    isAuthenticated,
+    isLoading: stats.isLoading,
     stats: stats.stats,
   }
 };
