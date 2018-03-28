@@ -42,7 +42,7 @@ class Login extends Component {
       client_id: 'd7af928a33075b0c817c',
       scope: 'user',
       state: secretState,
-      redirect_uri: 'http://localhost:3000/auth/callback',
+      redirect_uri: 'http://app.pi-speedtest.net/auth/callback',
     });
     const popup = popupWindow.open(
       secretState,
@@ -51,7 +51,6 @@ class Login extends Component {
     );
     popup
       .then(response => {
-        // console.log(response);
         const { code, state } = response;
         this.props.userActions.authoriseUser(code, state);
         setTimeout(() => {
