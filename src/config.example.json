@@ -1,0 +1,5 @@
+{
+  "apiEndpoint": "<API endpoint>",
+  "clientId": "<OAuth client id>",
+  "redirectUrl": "<Redirect url>"
+}
