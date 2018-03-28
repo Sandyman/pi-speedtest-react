@@ -49,8 +49,8 @@ class AppMenu extends Component {
 
     const loginButton = isAuthenticated ?
       <NavDropdown title={isAuthenticated ? currentUser.name : ''} id="basic-nav-dropdown">
-        <MenuItem onClick={this.handleCharts.bind(this)}>Charts</MenuItem>
         <MenuItem onClick={this.handleAccount.bind(this)}>Account</MenuItem>
+        <MenuItem onClick={this.handleCharts.bind(this)}>Charts</MenuItem>
         <MenuItem divider />
         <MenuItem onClick={this.handleLogout.bind(this)}>Log Out</MenuItem>
       </NavDropdown>
@@ -60,7 +60,7 @@ class AppMenu extends Component {
       </NavItem>;
 
     return (
-      <Navbar>
+      <Navbar inverse>
         <NavbarHeader />
         <Navbar.Collapse>
           <Nav pullRight>
