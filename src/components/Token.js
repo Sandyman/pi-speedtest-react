@@ -124,7 +124,7 @@ class Token extends Component {
           <Button bsStyle="primary" className="pull-left" onClick={this.handleRegenerate.bind(this)}>
             Yes
           </Button>
-          <Button bsStyle="" className="pull-left" onClick={this.handleClose.bind(this)}>
+          <Button className="pull-left" onClick={this.handleClose.bind(this)}>
             Cancel
           </Button>
         </Modal.Footer>
