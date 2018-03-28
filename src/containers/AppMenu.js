@@ -35,13 +35,13 @@ class AppMenu extends Component {
   }
 
   handleLogin() {
-    this.props.history.push('/login');
+    this.props.history.push('/');
   }
 
   handleLogout() {
     this.props.sampleActions.clearSamples();
     this.props.userActions.logoutUser();
-    this.props.history.push('/login');
+    this.props.history.push('/');
   }
 
   render() {
