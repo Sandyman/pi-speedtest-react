@@ -57,7 +57,7 @@ const shouldFetchSamples = (state) => {
 };
 
 export const fetchSamplesIfNeeded = (force) => (dispatch, getState) => {
-  if (!!force || shouldFetchSamples(getState())) {
+  if (force || shouldFetchSamples(getState())) {
     return dispatch(fetchSamples());
   }
 };

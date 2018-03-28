@@ -60,7 +60,7 @@ const shouldFetchStats = (state) => {
 };
 
 export const fetchStatsIfNeeded = (force) => (dispatch, getState) => {
-  if (!!force || shouldFetchStats(getState())) {
+  if (force || shouldFetchStats(getState())) {
     return dispatch(fetchStats());
   }
 };

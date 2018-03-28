@@ -61,8 +61,8 @@ const shouldFetchToken = (state) => {
   return !isLoading;
 };
 
-export const fetchTokenIfNeeded = () => (dispatch, getState) => {
-  if (shouldFetchToken(getState())) {
+export const fetchTokenIfNeeded = (force) => (dispatch, getState) => {
+  if (force || shouldFetchToken(getState())) {
     return dispatch(fetchToken());
   }
 };
