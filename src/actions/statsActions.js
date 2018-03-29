@@ -8,19 +8,25 @@ export const requestStats = () => {
   }
 };
 
-export const injectStats = (stats = null) => {
+export const injectStats = (data = null) => {
   return {
     type: ActionTypes.INJECT_STATS,
     payload: {
-      stats,
+      data,
     }
   }
 };
 
 const getStatsQuery = `
-{ 
+{
+  getLastSample {
+    download
+    upload
+    ping
+  }
+
   getStats { 
-    ping { 
+    ping {
       ...stats 
     } 
     upload { 
@@ -41,7 +47,7 @@ fragment stats on Stat {
 `;
 
 const fetchStats = () => dispatch => {
-  const callback = (json) => dispatch(injectStats(json.data.getStats));
+  const callback = (json) => dispatch(injectStats(json.data));
   dispatch(requestStats());
   return graphql({
       query: getStatsQuery,

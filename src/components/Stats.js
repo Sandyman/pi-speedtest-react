@@ -1,19 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import { Col, Grid, Row } from 'react-bootstrap';
-
-/**
- * This changes the numbers so that there are never more than three decimals shown.
- * @param n
- */
-const roundToMaxThreeDecimals = (n) => {
-  if (!n) return 0;
-
-  const e = Math.min(2, Math.log10(n));
-  const g = 2 - e;
-  const f = Math.min(1000, Math.pow(10, Math.ceil(g)));
-  return Math.round(n * f) / f;
-};
+import { Col, Row } from 'react-bootstrap';
+import roundToMaxThreeDecimals from '../util/round';
 
 class Stats extends Component {
   render() {
@@ -21,7 +9,7 @@ class Stats extends Component {
     const { min, max, mean, std } = stats;
 
     return (
-      <Grid>
+      <div>
         <Row className='show-grid'>
           <Col smOffset={1} sm={2}>
             <strong>{title}</strong>
@@ -40,7 +28,7 @@ class Stats extends Component {
         <Row>
           <br/><br/>
         </Row>
-      </Grid>
+      </div>
     )
   }
 }

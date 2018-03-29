@@ -13,6 +13,13 @@ import * as tokenActions from '../actions/tokenActions';
 import * as statsActions from '../actions/statsActions';
 
 class AppMenu extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleEvent = this.handleEvent.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
   componentDidMount() {
     const { isAuthenticated } = this.props;
 
@@ -28,16 +35,8 @@ class AppMenu extends Component {
     }
   }
 
-  handleAccount() {
-    this.props.history.push('/account');
-  }
-
-  handleCharts() {
-    this.props.history.push('/charts');
-  }
-
-  handleLogin() {
-    this.props.history.push('/');
+  handleEvent(e) {
+    this.props.history.push(e);
   }
 
   handleLogout() {
@@ -51,13 +50,15 @@ class AppMenu extends Component {
 
     const loginButton = isAuthenticated ?
       <NavDropdown title={isAuthenticated ? currentUser.name : ''} id="basic-nav-dropdown">
-        <MenuItem onClick={this.handleAccount.bind(this)}>Account</MenuItem>
-        <MenuItem onClick={this.handleCharts.bind(this)}>Charts</MenuItem>
+        <MenuItem onClick={() => this.handleEvent('/account')}>Account</MenuItem>
         <MenuItem divider />
-        <MenuItem onClick={this.handleLogout.bind(this)}>Log Out</MenuItem>
+        <MenuItem onClick={() => this.handleEvent('/connection')}>Connection</MenuItem>
+        <MenuItem onClick={() => this.handleEvent('/charts')}>Charts</MenuItem>
+        <MenuItem divider />
+        <MenuItem onClick={this.handleLogout}>Log Out</MenuItem>
       </NavDropdown>
       :
-      <NavItem onClick={this.handleLogin.bind(this)} disabled={isLoading}>
+      <NavItem onClick={() => this.handleEvent('/')} disabled={isLoading}>
         Log in
       </NavItem>;
 
