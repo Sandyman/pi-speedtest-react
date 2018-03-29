@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux'
 import {
-  Button, ButtonToolbar, Grid, OverlayTrigger, Row, Tooltip
+  Button, ButtonToolbar, Grid, Label, OverlayTrigger, Row, Tooltip
 } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import LineChart from './LineChart';
@@ -10,6 +10,9 @@ import AppMenu from '../containers/AppMenu';
 
 import * as sampleActions from '../actions/sampleActions';
 import { bindActionCreators } from 'redux';
+
+const Width = 600;
+const Height = 320;
 
 class Chart extends Component {
   componentDidMount() {
@@ -39,66 +42,72 @@ class Chart extends Component {
 
     const downloadChart = samplesAvailable
       ? <Row>
-        <LineChart
-          samples={samples}
-          options={{
-            color: 'blue',
-            xLabel: 'timestamp',
-            yLabel: 'download',
-            title: 'Download speed (Mbps)'
-          }}
-          width={700}
-          height={360} />
-        </Row>
-      : null;
-    const uploadChart = samplesAvailable
-      ? <Row>
-        <LineChart
-          samples={samples}
-          options={{
-            color: 'purple',
-            xLabel: 'timestamp',
-            yLabel: 'upload',
-            title: 'Upload speed (Mbps)'
-          }}
-          width={700}
-          height={360} />
-        </Row>
-      : null;
-    const pingChart = samplesAvailable
-      ? <Row>
-        <LineChart
-          samples={samples}
-          options={{
-            color: 'red',
-            xLabel: 'timestamp',
-            yLabel: 'ping',
-            title: 'Ping delay (ms)'
-          }}
-          width={600}
-          height={320} />
+          <br/>
+          <h3><Label bsStyle="primary">Download</Label></h3>
+          <LineChart
+            samples={samples}
+            options={{
+              color: 'blue',
+              xLabel: 'timestamp',
+              yLabel: 'download',
+              title: 'Download speed (Mbps)'
+            }}
+            width={Width}
+            height={Height} />
         </Row>
       : null;
 
-    const button = samplesAvailable
-    ? <Row className="pull-right">
-        <br/><br/><br/>
+    const uploadChart = samplesAvailable
+      ? <Row>
+          <br/>
+          <h3><Label bsStyle="primary">Upload</Label></h3>
+          <LineChart
+            samples={samples}
+            options={{
+              color: 'purple',
+              xLabel: 'timestamp',
+              yLabel: 'upload',
+              title: 'Upload speed (Mbps)'
+            }}
+            width={Width}
+            height={Height} />
+        </Row>
+      : null;
+
+    const pingChart = samplesAvailable
+      ? <Row>
+          <br/>
+          <h3><Label bsStyle="primary">Ping</Label></h3>
+          <LineChart
+            samples={samples}
+            options={{
+              color: 'red',
+              xLabel: 'timestamp',
+              yLabel: 'ping',
+              title: 'Ping delay (ms)'
+            }}
+            width={Width}
+            height={Height} />
+        </Row>
+      : null;
+
+    const button =
+      <div className="pull-right">
         <ButtonToolbar>
           <OverlayTrigger placement="right" overlay={tooltip}>
             <Button bsStyle='primary' disabled={isLoading} onClick={this.handleReload.bind(this)}>Refresh</Button>
           </OverlayTrigger>
         </ButtonToolbar>
         <br/><br/><br/>
-      </Row>
-    : null;
+      </div>;
 
     return (
       <div>
         <AppMenu />
         <Grid bsClass="container">
           <h2>Charts</h2>
-          {empty}
           {button}
+          {empty}
           {downloadChart}
           {uploadChart}
           {pingChart}
