@@ -65,6 +65,12 @@ class Token extends Component {
       Use this button to copy the token string, which you can paste verbatim into your config file.
     </Tooltip>;
 
+    let tokenStr = token === null
+      ? 'Your token will show up here'
+      : token === ''
+        ? 'It looks like you don\'t have a token yet'
+        :  token;
+
     return (
       <div>
       <Form horizontal sm={8}>
@@ -73,7 +79,7 @@ class Token extends Component {
             Token
           </Col>
           <Col sm={5}>
-            <FormControl.Static>{token ? token : 'Your token will show up here'}</FormControl.Static>
+            <FormControl.Static>{tokenStr}</FormControl.Static>
           </Col>
           <Col sm={2}>
             <OverlayTrigger placement="right" overlay={tooltip}>
@@ -86,7 +92,7 @@ class Token extends Component {
         <Col smOffset={1}>
           <br/>
           <div>
-            <h4><Label bsStyle="primary">What is it?</Label></h4>
+            <h4><Label bsStyle="primary">What is this?</Label></h4>
           </div>
           <p>
             We use this token to authenticate you when the speedtest uploads your results.<br/>
