@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import {
-  Button, Col, Collapse, ControlLabel, Fade, Form, FormControl, FormGroup, Glyphicon, Label, Modal, OverlayTrigger, Tooltip
+  Button, Col, Collapse, ControlLabel, Fade, Form, FormControl, FormGroup, Glyphicon, Modal, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import { bindActionCreators } from "redux";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
