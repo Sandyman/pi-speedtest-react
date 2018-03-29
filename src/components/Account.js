@@ -24,18 +24,18 @@ const Account = () => (
       <Row>
         <Panel>
           <Col smOffset={1}>
-            <br/><h3>Authentication</h3><br/>
+            <br/><h3>Connection statistics</h3><br/>
           </Col>
-          <Token />
+          <Overview />
           <br/>
         </Panel>
       </Row>
       <Row>
         <Panel>
           <Col smOffset={1}>
-            <br/><h3>Connection statistics</h3><br/>
+            <br/><h3>Authentication</h3><br/>
           </Col>
-          <Overview />
+          <Token />
           <br/>
         </Panel>
       </Row>
