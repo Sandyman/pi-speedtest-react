@@ -4,10 +4,10 @@ import * as ActionTypes from '../actions/userActionTypes';
 const { localStorage } = window;
 
 export const initialState = {
-  isAuthenticated: !!localStorage.getItem('jwt'),
+  isAuthenticated: !!localStorage.getItem('jwtToken'),
   isInvalidated: false,
   isLoading: false,
-  user: localStorage.getItem('jwt') ? decode(localStorage.getItem('jwt')) : {},
+  user: localStorage.getItem('jwtToken') ? decode(localStorage.getItem('jwtToken')) : {},
 };
 
 const userReducer = (state = initialState, action) => {

@@ -17,7 +17,7 @@ class Connection extends Component {
   }
 
   render() {
-    const { isLoading, mostRecent, statistics } = this.props;
+    const { isLoading, statistics } = this.props;
     const { download, upload, ping } = statistics || {
       download: {},
       upload: {},
@@ -50,9 +50,7 @@ class Connection extends Component {
               <Col smOffset={1}>
                 <br/><h3>Most recent results</h3><br/>
               </Col>
-              <LastSample
-                sample={mostRecent}
-              />
+              <LastSample />
               <br/>
             </Panel>
           </Row>

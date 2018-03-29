@@ -19,12 +19,6 @@ export const injectStats = (data = null) => {
 
 const getStatsQuery = `
 {
-  getLastSample {
-    download
-    upload
-    ping
-  }
-
   getStats { 
     ping {
       ...stats 
