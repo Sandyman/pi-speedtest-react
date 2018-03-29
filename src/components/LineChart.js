@@ -68,7 +68,7 @@ const samplesToChartData = (samples, { xLabel, yLabel, color, title }) => {
 
 const getChartOptions = ({ title, color }) => ({
   title: {
-    display: true,
+    display: false,
     text: `${title}`,
   },
 
