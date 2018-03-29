@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import {
-  Button, Col, ControlLabel, Fade, Form, FormControl, FormGroup, Glyphicon, Label, Modal, OverlayTrigger, Tooltip
+  Button, Col, Collapse, ControlLabel, Fade, Form, FormControl, FormGroup, Glyphicon, Label, Modal, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
 import { bindActionCreators } from "redux";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -13,9 +13,16 @@ class Token extends Component {
   constructor(props) {
     super(props);
 
+    this.handleClose = this.handleClose.bind(this);
+    this.handleCopy = this.handleCopy.bind(this);
+    this.handleRefresh = this.handleRefresh.bind(this);
+    this.handleRegenerate = this.handleRefresh.bind(this);
+    this.handleTokenInfoToggle = this.handleTokenInfoToggle.bind(this);
+
     this.state = {
       isCopied: false,
       showModal: false,
+      showTokenInfo: false,
     }
   }
 
@@ -53,6 +60,12 @@ class Token extends Component {
     this.props.tokenActions.createNewToken();
   }
 
+  handleTokenInfoToggle() {
+    this.setState({
+      showTokenInfo: !this.state.showTokenInfo,
+    })
+  }
+
   render() {
     const { isLoading, token } = this.props;
 
@@ -82,37 +95,43 @@ class Token extends Component {
             <FormControl.Static>{tokenStr}</FormControl.Static>
           </Col>
           <Col sm={2}>
-            <OverlayTrigger placement="right" overlay={tooltip}>
-              <Button bsStyle='primary' disabled={isLoading} onClick={this.handleRefresh.bind(this)}>
-                <Glyphicon glyph="glyphicon glyphicon-refresh"/>
-              </Button>
-            </OverlayTrigger>
           </Col>
         </FormGroup>
+        <br/>
         <Col smOffset={1}>
-          <br/>
-          <div>
-            <h4><Label bsStyle="primary">What is this?</Label></h4>
-          </div>
-          <p>
-            We use this token to authenticate you when the speedtest uploads your results.<br/>
-            Copy this string and paste it in a file <code>~/.st/config</code> like so: <br/><br/>
-            <code>token: {token || '...'}</code>&nbsp;
-            <CopyToClipboard
-              text={`token: ${token}`}
-              onCopy={this.handleCopy.bind(this)}>
-              <OverlayTrigger placement="right" overlay={tooltipCopy}>
-                <Button disabled={!token}>
-                  <Glyphicon glyph="glyphicon glyphicon-copy" />
-                </Button>
-              </OverlayTrigger>
-            </CopyToClipboard>
-            &nbsp;&nbsp;
-            <Fade in={this.state.isCopied} timeout={500}>
-              <span style={{color: 'red'}}>Copied.</span>
-            </Fade>
-            <br/>
-          </p>
+          <Button bsSize="xsmall" onClick={this.handleTokenInfoToggle}>What is this?</Button>
+          <Collapse in={this.state.showTokenInfo} timeout={800}>
+            <div>
+              <br/>
+              <p>
+                We use this token to authenticate you when the speedtest uploads your results.<br/>
+                Copy this string and paste it in a file <code>~/.st/config</code> like so: <br/>
+                <code>token: {token || '...'}</code>&nbsp;
+                <CopyToClipboard
+                  text={`token: ${token}`}
+                  onCopy={this.handleCopy}>
+                  <OverlayTrigger placement="right" overlay={tooltipCopy}>
+                    <Button disabled={!token}>
+                      <Glyphicon glyph="glyphicon glyphicon-copy" />
+                    </Button>
+                  </OverlayTrigger>
+                </CopyToClipboard>
+                &nbsp;&nbsp;
+                <Fade in={this.state.isCopied} timeout={500}>
+                  <span style={{color: 'red', fontSize: '0.8em'}}>Copied.</span>
+                </Fade>
+              </p>
+              <br/>
+              <p>
+
+                <OverlayTrigger placement="right" overlay={tooltip}>
+                  <Button bsStyle='warning' disabled={isLoading} onClick={this.handleRefresh}>
+                    <Glyphicon glyph="glyphicon glyphicon-refresh"/> Regenerate
+                  </Button>
+                </OverlayTrigger>
+              </p>
+            </div>
+          </Collapse>
         </Col>
         {/*<FormGroup>*/}
           {/*<Col smOffset={2} sm={6}>*/}
@@ -120,7 +139,7 @@ class Token extends Component {
           {/*</Col>*/}
         {/*</FormGroup>*/}
       </Form>
-      <Modal show={this.state.showModal} onHide={this.handleClose.bind(this)}>
+      <Modal show={this.state.showModal} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Warning</Modal.Title>
         </Modal.Header>
@@ -131,10 +150,10 @@ class Token extends Component {
           Do you really want to generate a new authentication token?
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="primary" className="pull-left" onClick={this.handleRegenerate.bind(this)}>
+          <Button bsStyle="primary" className="pull-left" onClick={this.handleRegenerate}>
             Yes
           </Button>
-          <Button className="pull-left" onClick={this.handleClose.bind(this)}>
+          <Button className="pull-left" onClick={this.handleClose}>
             Cancel
           </Button>
         </Modal.Footer>
