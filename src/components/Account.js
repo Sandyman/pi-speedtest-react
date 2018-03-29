@@ -35,7 +35,7 @@ const Account = () => (
             <br/><h3>Danger zone</h3><br/>
           </Col>
           <Danger />
-          <br/>
+          <Col><br/><br/></Col>
         </Panel>
       </Row>
     </Grid>
