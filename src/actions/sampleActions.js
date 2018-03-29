@@ -2,6 +2,14 @@ import _ from 'underscore';
 import * as ActionTypes from './sampleActionTypes';
 import { graphql } from "./utils";
 
+let timeout = null;
+
+export const clearError = () => {
+  return {
+    type: ActionTypes.CLEAR_ERROR,
+  }
+};
+
 export const clearSamples = () => {
   return {
     type: ActionTypes.CLEAR_SAMPLES,
@@ -23,6 +31,12 @@ export const injectSamples = (samples = []) => {
   };
 };
 
+export const timeoutSamples = () => {
+  return {
+    type: ActionTypes.TIMEOUT_SAMPLES,
+  }
+};
+
 const getSamplesQuery = `
 query {
   getSamples {
@@ -35,8 +49,14 @@ query {
 `;
 
 const fetchSamples = () => dispatch => {
-  const callback = (json) => dispatch(injectSamples(json.data.getSamples));
   dispatch(requestSamples());
+  timeout = setTimeout(() => dispatch(timeoutSamples()), 15000);
+
+  const callback = (json) => {
+    clearTimeout(timeout);
+    timeout = null;
+    return dispatch(injectSamples(json.data.getSamples));
+  };
   return graphql({
       query: getSamplesQuery,
       variables: { },

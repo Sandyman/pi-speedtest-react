@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux'
 import {
-  Button, ButtonToolbar, Grid, Label, OverlayTrigger, Row, Tooltip
+  Alert, Button, ButtonToolbar, Col, Collapse, Grid, Label, OverlayTrigger, Row, Tooltip
 } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import LineChart from './LineChart';
@@ -23,8 +23,12 @@ class Chart extends Component {
     this.props.sampleActions.fetchSamplesIfNeeded(true);
   }
 
+  handleDismiss() {
+    this.props.sampleActions.clearError();
+  }
+
   render() {
-    const { isLoading, samples } = this.props;
+    const { errorMessage, isError, isLoading, samples } = this.props;
 
     const tooltip = <Tooltip id="tooltip-right">
       Use this button to reload the sample data.
@@ -34,15 +38,28 @@ class Chart extends Component {
 
     const emptyMsg = isLoading ? 'Loading data. Please wait...' : 'Nothing to see here.';
     const empty = !samplesAvailable
-    ? <Row>
-        <br/><br/><br/>
-        <h3>{emptyMsg}</h3>
-      </Row>
-    : null;
+      ? <Row>
+          <h3>{emptyMsg}</h3>
+        </Row>
+      : null;
+
+    const errorPanel = (true)
+      ? <Row>
+          <Col sm={6} smOffset={3}>
+            <Collapse in={isError} timeout={1500}>
+              <div>
+                <Alert bsStyle="danger" onDismiss={this.handleDismiss.bind(this)}>
+                  <h4>Oops. Something went wrong!</h4>
+                  <p>{errorMessage}</p>
+                </Alert>
+              </div>
+            </Collapse>
+          </Col>
+        </Row>
+      : null;
 
     const downloadChart = samplesAvailable
       ? <Row>
-          <br/>
           <h3><Label bsStyle="primary">Download</Label></h3>
           <LineChart
             samples={samples}
@@ -107,6 +124,7 @@ class Chart extends Component {
         <Grid bsClass="container">
           <h2>Charts</h2>
           {button}
+          {errorPanel}
           {empty}
           {downloadChart}
           {uploadChart}
@@ -118,14 +136,18 @@ class Chart extends Component {
 }
 
 Chart.propTypes = {
+  errorMessage: propTypes.string,
+  isError: propTypes.bool,
   isLoading: propTypes.bool,
   samples: propTypes.array,
 };
 
 const mapStateToProps = (state) => {
   const { data } = state;
-  const { isLoading, samples } = data;
+  const { errorMessage, isError, isLoading, samples } = data;
   return {
+    errorMessage,
+    isError,
     isLoading,
     samples,
   }
