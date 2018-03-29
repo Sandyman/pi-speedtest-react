@@ -38,7 +38,7 @@ class Danger extends Component {
     });
     this.props.userActions.deleteUserAccount(sub);
     this.props.userActions.logoutUser();
-    this.props.history.push('/login');
+    this.props.history.push('/');
   }
 
   handleCheckbox(isChecked) {
