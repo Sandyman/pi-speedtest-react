@@ -10,7 +10,6 @@ import NavbarHeader from '../components/NavbarHeader';
 import * as userActions from '../actions/userActions';
 import * as sampleActions from '../actions/sampleActions';
 import * as tokenActions from '../actions/tokenActions';
-import * as statsActions from '../actions/statsActions';
 
 class AppMenu extends Component {
   constructor(props) {
@@ -95,7 +94,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   sampleActions: bindActionCreators(sampleActions, dispatch),
-  statsActions: bindActionCreators(statsActions, dispatch),
   tokenActions: bindActionCreators(tokenActions, dispatch),
   userActions: bindActionCreators(userActions, dispatch),
 });
