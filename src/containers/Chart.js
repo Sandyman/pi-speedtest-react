@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import LineChart from './LineChart';
-import AppMenu from '../containers/AppMenu';
+import AppMenu from './AppMenu';
 
 import * as sampleActions from '../actions/sampleActions';
 import { bindActionCreators } from 'redux';

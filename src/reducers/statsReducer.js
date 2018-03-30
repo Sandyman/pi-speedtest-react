@@ -9,7 +9,6 @@ export const initialState = {
 const statsReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
-  console.log(payload);
   switch (type) {
     case actionTypes.INJECT_STATS:
       return {
