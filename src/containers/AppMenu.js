@@ -39,9 +39,9 @@ class AppMenu extends Component {
   }
 
   handleLogout() {
+    this.props.history.push('/');
     this.props.sampleActions.clearSamples();
     this.props.userActions.logoutUser();
-    this.props.history.push('/');
   }
 
   render() {

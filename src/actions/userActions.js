@@ -24,9 +24,9 @@ export const injectUser = (user = {}) => {
 };
 
 export const logoutUser = () => {
-  const jwtToken = window.sessionStorage.getItem('jwtToken');
+  const jwtToken = window.localStorage.getItem('jwtToken');
   if (jwtToken) {
-    window.sessionStorage.removeItem('jwtToken');
+    window.localStorage.removeItem('jwtToken');
 
     const url = `${apiEndpoint}/auth/logout`;
     const header = {
@@ -57,7 +57,7 @@ export const authoriseUser = (code, state) => dispatch => {
         response.json().then(json => {
           const jwtToken = json.token;
           const claims = decode(jwtToken);
-          window.sessionStorage.setItem('jwtToken', jwtToken);
+          window.localStorage.setItem('jwtToken', jwtToken);
           dispatch(injectUser(claims));
         })
       }
@@ -65,9 +65,9 @@ export const authoriseUser = (code, state) => dispatch => {
 };
 
 export const deleteUserAccount = (sub) => dispatch => {
-  const jwtToken = window.sessionStorage.getItem('jwtToken');
+  const jwtToken = window.localStorage.getItem('jwtToken');
   if (jwtToken) {
-    window.sessionStorage.removeItem('jwtToken');
+    window.localStorage.removeItem('jwtToken');
     const url = `${apiEndpoint}/user/${sub}`;
     const header = {
       method: 'DELETE',
