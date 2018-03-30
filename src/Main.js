@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Account from './components/Account';
-import Chart from './components/Chart';
+import Chart from './containers/Chart';
 import Connection from './components/Connection';
-import Login from './components/Login';
+import Login from './containers/Login';
 import Success from './components/Success';
 
 const Main = () => (

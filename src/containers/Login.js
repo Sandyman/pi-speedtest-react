@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { Button, Grid, Jumbotron, Media, Navbar, Row } from 'react-bootstrap';
 import { toQuery, } from '../util/utils';
 import createState from '../util/state';
-import NavbarHeader from './NavbarHeader';
+import NavbarHeader from '../components/NavbarHeader';
 import popupWindow from '../util/openWindow';
 import * as userActions from '../actions/userActions';
 // import { decode } from "jsonwebtoken";

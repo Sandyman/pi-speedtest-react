@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, Button, Col, Glyphicon, Row } from 'react-bootstrap';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import Stats from './Stats';
+import Stats from '../components/Stats';
 
 const GET_STATISTICS = gql`
 {
