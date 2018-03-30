@@ -34,7 +34,7 @@ const Statistics = () => (
         <br/>
         <h3>
           Statistics&nbsp;&nbsp;
-          <Button bsSize="small" onClick={() => refetch()}>
+          <Button bsSize="small" onClick={() => refetch()} disabled={loading}>
             <Glyphicon glyph="glyphicon glyphicon-refresh"/>
           </Button>
         </h3>

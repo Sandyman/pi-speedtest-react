@@ -21,7 +21,7 @@ const LastSample = () => (
         <br/>
         <h3>
           Most recent results&nbsp;&nbsp;
-          <Button bsSize="small" onClick={() => refetch()}>
+          <Button bsSize="small" onClick={() => refetch()} disabled={loading}>
             <Glyphicon glyph="glyphicon glyphicon-refresh"/>
           </Button>
         </h3>
