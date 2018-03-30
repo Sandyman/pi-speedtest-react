@@ -5,8 +5,16 @@ import roundToMaxThreeDecimals from '../util/round';
 
 class Stats extends Component {
   render() {
-    const { title, stats } = this.props;
-    const { min, max, mean, std } = stats;
+    const { title, min, max, mean, std, loading } = this.props;
+
+    const formattedNum = (num) => <span className="stats-numbers">{roundToMaxThreeDecimals(num)}</span>;
+    const withLoading = f => (loading ? 'Loading...' : f);
+
+    const Max = withLoading(formattedNum(max));
+    const Min = withLoading(formattedNum(min));
+    const Mean = withLoading(formattedNum(mean));
+    const formattedStd = <span>(σ = {formattedNum(std)})</span>;
+    const Std = loading ? null : formattedStd;
 
     return (
       <div>
@@ -14,16 +22,9 @@ class Stats extends Component {
           <Col smOffset={1} sm={2}>
             <strong>{title}</strong>
           </Col>
-          <Col sm={2} smOffset={0}>
-            Max: <span className="stats-numbers">{roundToMaxThreeDecimals(max)}</span>
-          </Col>
-          <Col sm={3}>
-            Mean: <span className="stats-numbers">{roundToMaxThreeDecimals(mean)}</span>
-            &nbsp;&nbsp;(σ = <span className="stats-numbers">{roundToMaxThreeDecimals(std)}</span>)
-          </Col>
-          <Col sm={2}>
-            Min: <span className="stats-numbers">{roundToMaxThreeDecimals(min)}</span>
-          </Col>
+          <Col sm={2} smOffset={0}>{Max}</Col>
+          <Col sm={3}>{Mean}&nbsp;&nbsp;{Std}</Col>
+          <Col sm={2}>{Min}</Col>
         </Row>
         <Row>
           <br/><br/>
@@ -34,7 +35,11 @@ class Stats extends Component {
 }
 
 Stats.propTypes = {
-  stats: propTypes.object.isRequired,
+  loading: propTypes.bool,
+  min: propTypes.number,
+  max: propTypes.number,
+  mean: propTypes.number,
+  std: propTypes.number,
   title: propTypes.string.isRequired,
 };
 
