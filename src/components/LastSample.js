@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Col, Row } from 'react-bootstrap';
+import { Alert, Button, Col, Glyphicon, Row } from 'react-bootstrap';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import roundToMaxThreeDecimals from '../util/round';
@@ -15,10 +15,17 @@ const GET_LAST_SAMPLE = gql`
 `;
 
 const LastSample = () => (
-  <Query query={GET_LAST_SAMPLE}>
-    {({ loading, error, data }) => {
+  <Query query={GET_LAST_SAMPLE} fetchPolicy="cache-and-network">
+    {({ loading, error, data, refetch }) => {
       const pageHeader = <Col smOffset={1}>
-        <br/><h3>Most recent results</h3><br/>
+        <br/>
+        <h3>
+          Most recent results&nbsp;&nbsp;
+          <Button bsSize="small" onClick={() => refetch()}>
+            <Glyphicon glyph="glyphicon glyphicon-refresh"/>
+          </Button>
+        </h3>
+        <br/>
       </Col>;
 
       if (error) return (
