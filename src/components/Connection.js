@@ -47,11 +47,7 @@ class Connection extends Component {
           <Row><br/></Row>
           <Row>
             <Panel>
-              <Col smOffset={1}>
-                <br/><h3>Most recent results</h3><br/>
-              </Col>
               <LastSample />
-              <br/>
             </Panel>
           </Row>
           <Row>
