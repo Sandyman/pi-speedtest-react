@@ -1,3 +1,5 @@
-export const API_ENDPOINT = process.env.PI_API_ENDPOINT;
-export const CLIENT_ID = process.env.PI_CLIENT_ID;
-export const REDIRECT_URL = process.env.PI_REDIRECT_URL;
+import { apiEndpoint, clientId, redirectUrl } from './config.json';
+
+export const API_ENDPOINT = apiEndpoint;
+export const CLIENT_ID = clientId;
+export const REDIRECT_URL = redirectUrl;
