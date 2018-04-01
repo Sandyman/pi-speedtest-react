@@ -10,7 +10,7 @@ import NavbarHeader from '../components/NavbarHeader';
 import popupWindow from '../util/openWindow';
 import * as userActions from '../actions/userActions';
 // import { decode } from "jsonwebtoken";
-import { clientId, redirectUrl } from "../config";
+import { CLIENT_ID, REDIRECT_URL} from "../config";
 
 import icon from '../github-icon-2.png';
 
@@ -40,10 +40,10 @@ class Login extends Component {
   handleLogin() {
     const secretState = createState();
     const qs = toQuery({
-      client_id: clientId,
+      client_id: CLIENT_ID,
       scope: 'user',
       state: secretState,
-      redirect_uri: redirectUrl,
+      redirect_uri: REDIRECT_URL,
     });
     const popup = popupWindow.open(
       secretState,

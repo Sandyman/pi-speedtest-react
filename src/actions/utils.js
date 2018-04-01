@@ -1,10 +1,10 @@
-import {apiEndpoint} from "../config";
+import { API_ENDPOINT } from '../config';
 
 export const graphql = ({query, variables}, callback) => {
   const jwt = window.localStorage.getItem('jwtToken');
   if (!jwt) return;
 
-  const url = `${apiEndpoint}/graphql`;
+  const url = `${API_ENDPOINT}/graphql`;
   const graphqlBody = {
     query,
     variables,

@@ -9,7 +9,7 @@ import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import { apiEndpoint } from './config';
+import { API_ENDPOINT }from './config';
 
 import reducer from './reducers'
 import thunk from 'redux-thunk'
@@ -29,7 +29,7 @@ const store = createStore(
 );
 
 const httpLink = createHttpLink({
-  uri: `${apiEndpoint}/graphql`,
+  uri: `${API_ENDPOINT}/graphql`,
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {

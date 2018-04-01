@@ -1,6 +1,6 @@
 import * as ActionTypes from './userActionTypes';
 import { decode }  from 'jsonwebtoken';
-import { apiEndpoint } from '../config';
+import { API_ENDPOINT } from '../config';
 
 export const deleteUser = () => {
   return {
@@ -28,7 +28,7 @@ export const logoutUser = () => {
   if (jwtToken) {
     window.localStorage.removeItem('jwtToken');
 
-    const url = `${apiEndpoint}/auth/logout`;
+    const url = `${API_ENDPOINT}/auth/logout`;
     const header = {
       method: 'GET',
       headers: {
@@ -43,7 +43,7 @@ export const logoutUser = () => {
 };
 
 export const authoriseUser = (code, state) => dispatch => {
-  const url = `${apiEndpoint}/auth/github?code=${code}&state=${state}`;
+  const url = `${API_ENDPOINT}/auth/github?code=${code}&state=${state}`;
   const header = {
     method: 'GET',
     headers: {
@@ -68,7 +68,7 @@ export const deleteUserAccount = (sub) => dispatch => {
   const jwtToken = window.localStorage.getItem('jwtToken');
   if (jwtToken) {
     window.localStorage.removeItem('jwtToken');
-    const url = `${apiEndpoint}/user/${sub}`;
+    const url = `${API_ENDPOINT}/user/${sub}`;
     const header = {
       method: 'DELETE',
       headers: {
