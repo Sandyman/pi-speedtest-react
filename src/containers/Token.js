@@ -77,7 +77,6 @@ class Token extends Component {
       Use this button to copy the token string, which you can paste verbatim into your config file.
     </Tooltip>;
 
-
     const buttonText = this.state.showTokenInfo ? 'Close' : 'What is this?';
     return (
       <Query query={GET_TOKEN} fetchPolicy="cache-and-network">
@@ -85,11 +84,8 @@ class Token extends Component {
           if (error) return 'Error...';
 
           const { token } = data.getToken || {};
-          let tokenStr = loading
-            ? 'Loading...'
-            : !token
-              ? 'It looks like you don\'t have a token yet'
-              :  token;
+          const tokenStr = token ? token
+            : loading ? 'Loading...' : 'It looks like you don\'t have a token yet';
 
           const explanation = token
             ? <p>
