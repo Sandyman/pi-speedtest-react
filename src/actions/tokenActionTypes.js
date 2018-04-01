@@ -1,3 +1,0 @@
-export const CREATE_TOKEN = 'CREATE_TOKEN';
-export const INJECT_TOKEN = 'INJECT_TOKEN';
-export const REQUEST_TOKEN = 'REQUEST_TOKEN';

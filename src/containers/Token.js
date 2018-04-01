@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import propTypes from 'prop-types';
 import {
   Button, Col, Collapse, ControlLabel, Fade, Form, FormControl, FormGroup, Glyphicon, Modal, OverlayTrigger, Tooltip
 } from 'react-bootstrap';
-import { bindActionCreators } from "redux";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Mutation, Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
-import * as tokenActions from '../actions/tokenActions';
+const GET_TOKEN = gql`
+query {
+  getToken {
+    token
+  }
+}
+`;
+
+const CREATE_TOKEN = gql`
+mutation {
+  createToken {
+    token
+  }
+}
+`;
 
 class Token extends Component {
   constructor(props) {
@@ -16,7 +29,6 @@ class Token extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
     this.handleRefresh = this.handleRefresh.bind(this);
-    this.handleRegenerate = this.handleRefresh.bind(this);
     this.handleTokenInfoToggle = this.handleTokenInfoToggle.bind(this);
 
     this.state = {
@@ -24,10 +36,6 @@ class Token extends Component {
       showModal: false,
       showTokenInfo: false,
     }
-  }
-
-  componentDidMount() {
-    this.props.tokenActions.fetchTokenIfNeeded();
   }
 
   handleClose() {
@@ -53,13 +61,6 @@ class Token extends Component {
     })
   }
 
-  handleRegenerate() {
-    this.setState({
-      showModal: false,
-    });
-    this.props.tokenActions.createNewToken();
-  }
-
   handleTokenInfoToggle() {
     this.setState({
       showTokenInfo: !this.state.showTokenInfo,
@@ -67,8 +68,6 @@ class Token extends Component {
   }
 
   render() {
-    const { isLoading, token } = this.props;
-
     const tooltip = <Tooltip id="tooltip-right">
       Use this button to generate a new authentication token.
       This will invalidate your old token, so make sure you know this is what you want.
@@ -78,34 +77,22 @@ class Token extends Component {
       Use this button to copy the token string, which you can paste verbatim into your config file.
     </Tooltip>;
 
-    let tokenStr = token === null
-      ? 'Your token will show up here'
-      : !token
-        ? 'It looks like you don\'t have a token yet'
-        :  token;
-
 
     const buttonText = this.state.showTokenInfo ? 'Close' : 'What is this?';
     return (
-      <div>
-      <Form horizontal sm={8}>
-        <FormGroup controlId='formHorizontalToken'>
-          <Col componentClass={ControlLabel} sm={2}>
-            Token
-          </Col>
-          <Col sm={5}>
-            <FormControl.Static>{tokenStr}</FormControl.Static>
-          </Col>
-          <Col sm={2}>
-          </Col>
-        </FormGroup>
-        <br/>
-        <Col smOffset={1}>
-          <Button bsSize="xsmall" onClick={this.handleTokenInfoToggle}>{buttonText}</Button>
-          <Collapse in={this.state.showTokenInfo} timeout={800}>
-            <div>
-              <br/>
-              <p>
+      <Query query={GET_TOKEN} fetchPolicy="cache-and-network">
+        {({ loading, error, data }) => {
+          if (error) return 'Error...';
+
+          const { token } = data.getToken || {};
+          let tokenStr = loading
+            ? 'Loading...'
+            : !token
+              ? 'It looks like you don\'t have a token yet'
+              :  token;
+
+          const explanation = token
+            ? <p>
                 We use this token to authenticate you when the speedtest uploads your results.<br/>
                 Copy this string and paste it in a file <code>~/.st/config</code> like so: <br/>
                 <code>token: {token || '...'}</code>&nbsp;
@@ -122,64 +109,83 @@ class Token extends Component {
                 <Fade in={this.state.isCopied} timeout={500}>
                   <span style={{color: 'red', fontSize: '0.8em'}}>Copied.</span>
                 </Fade>
-              </p>
               <br/>
-              <p>
-
-                <OverlayTrigger placement="right" overlay={tooltip}>
-                  <Button bsStyle='warning' disabled={isLoading} onClick={this.handleRefresh}>
-                    <Glyphicon glyph="glyphicon glyphicon-refresh"/> Regenerate
-                  </Button>
-                </OverlayTrigger>
               </p>
+            : null;
+
+          return (
+            <div>
+              <Form horizontal sm={8}>
+                <FormGroup controlId='formHorizontalToken'>
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Token
+                  </Col>
+                  <Col sm={5}>
+                    <FormControl.Static>{tokenStr}</FormControl.Static>
+                  </Col>
+                  <Col sm={2}>
+                  </Col>
+                </FormGroup>
+                <Col smOffset={1}>
+                  <Button bsSize="xsmall" onClick={this.handleTokenInfoToggle}>{buttonText}</Button>
+                  <Collapse in={this.state.showTokenInfo} timeout={800}>
+                    <div>
+                      <br/>
+                      {explanation}
+                      <p>
+                        <OverlayTrigger placement="right" overlay={tooltip}>
+                          <Mutation
+                            mutation={CREATE_TOKEN}
+                            update={(cache, { data: { createToken }}) => {
+                              cache.writeQuery({
+                                query: GET_TOKEN,
+                                data: { getToken: createToken },
+                              });
+                            }}
+                          >
+                            {(createToken) => (
+                              <span>
+                              <OverlayTrigger placement="right" overlay={tooltip}>
+                                <Button bsStyle='warning' disabled={loading} onClick={this.handleRefresh}>
+                                  <Glyphicon glyph="glyphicon glyphicon-refresh"/> Regenerate
+                                </Button>
+                              </OverlayTrigger>
+
+                              <Modal show={this.state.showModal} onHide={this.handleClose}>
+                                <Modal.Header closeButton>
+                                  <Modal.Title>Warning</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  When you regenerate the authentication token, your old token will be invalidated immediately.
+                                  Don't forget to copy/paste the new token once it's been generated.
+                                  <br/><br/>
+                                  Do you really want to generate a new authentication token?
+                                </Modal.Body>
+                                <Modal.Footer>
+                                  <Button bsStyle="primary" className="pull-left" onClick={() => {
+                                    setTimeout(createToken, 100);
+                                    this.handleClose();
+                                  }}>
+                                    Yes
+                                  </Button>
+                                  <Button className="pull-left" onClick={this.handleClose}>Cancel</Button>
+                                </Modal.Footer>
+                              </Modal>
+                            </span>
+                            )}
+                          </Mutation>
+                        </OverlayTrigger>
+                      </p>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Form>
             </div>
-          </Collapse>
-        </Col>
-        {/*<FormGroup>*/}
-          {/*<Col smOffset={2} sm={6}>*/}
-            {/*<Button bsStyle="danger">Delete</Button>*/}
-          {/*</Col>*/}
-        {/*</FormGroup>*/}
-      </Form>
-      <Modal show={this.state.showModal} onHide={this.handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Warning</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          When you regenerate the authentication token, your old token will be invalidated immediately. Don't forget
-          to copy/paste the new token once it's been generated.
-          <br/><br/>
-          Do you really want to generate a new authentication token?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button bsStyle="primary" className="pull-left" onClick={this.handleRegenerate}>
-            Yes
-          </Button>
-          <Button className="pull-left" onClick={this.handleClose}>
-            Cancel
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      </div>
-    )
+          );
+        }}
+      </Query>
+    );
   }
 }
 
-Token.propTypes = {
-  isLoading: propTypes.bool,
-  token: propTypes.string,
-};
-
-const mapStateToProps = state => {
-  const { isLoading, token } = state.token;
-  return {
-    isLoading,
-    token,
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  tokenActions: bindActionCreators(tokenActions, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Token);
+export default Token;
