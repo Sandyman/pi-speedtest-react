@@ -28,11 +28,9 @@
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "dev": "cd src && ln -sf config-dev.json config.json && cd ..",
-    "prod": "cd src && ln -sf config-prod.json config.json && cd ..",
     "start": "react-scripts start",
     "build": "react-scripts build && cp build/index.html build/404.html",
-    "deploy": "npm run prod && npm run build && netlify deploy && npm run dev",
+    "deploy": "npm run build && netlify deploy",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
