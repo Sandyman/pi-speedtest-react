@@ -80,10 +80,12 @@ class Token extends Component {
 
     let tokenStr = token === null
       ? 'Your token will show up here'
-      : token === ''
+      : !token
         ? 'It looks like you don\'t have a token yet'
         :  token;
 
+
+    const buttonText = this.state.showTokenInfo ? 'Close' : 'What is this?';
     return (
       <div>
       <Form horizontal sm={8}>
@@ -99,7 +101,7 @@ class Token extends Component {
         </FormGroup>
         <br/>
         <Col smOffset={1}>
-          <Button bsSize="xsmall" onClick={this.handleTokenInfoToggle}>What is this?</Button>
+          <Button bsSize="xsmall" onClick={this.handleTokenInfoToggle}>{buttonText}</Button>
           <Collapse in={this.state.showTokenInfo} timeout={800}>
             <div>
               <br/>
