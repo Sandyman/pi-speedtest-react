@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -9,7 +8,6 @@ import createState from '../util/state';
 import NavbarHeader from '../components/NavbarHeader';
 import popupWindow from '../util/openWindow';
 import * as userActions from '../actions/userActions';
-// import { decode } from "jsonwebtoken";
 import { CLIENT_ID, REDIRECT_URL} from "../config";
 
 import icon from '../github-icon-2.png';
@@ -61,7 +59,9 @@ class Login extends Component {
     popup
       .then(response => {
         const { code, state } = response;
-        this.props.userActions.authoriseUser(code, state);
+        this.props.userActions.authoriseUser(code, state, () => {
+          this.props.history.push('/account');
+        });
         this.setState({
           showSpinner: true,
         })
@@ -70,12 +70,6 @@ class Login extends Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props;
-    if (isAuthenticated) {
-      this.props.history.push('/account');
-      return null;
-    }
-
     const progressBar = this.state.showSpinner
       ? <ProgressBar active now={100} label='Hold on...'/>
       : null;
@@ -88,10 +82,10 @@ class Login extends Component {
           </Navbar>
         </Row>
         <Row>
+          {progressBar}
           <br/><br/><br/>
         </Row>
         <Row>
-          {progressBar}
           <Jumbotron>
             <Media>
               <Media.Left>
@@ -120,23 +114,8 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  isAuthenticated: propTypes.bool,
-  isInvalidated: propTypes.bool,
-  currentUser: propTypes.object
-};
-
-const mapStateToProps = state => {
-  const { user } = state;
-  return {
-    isInvalidated: user.isInvalidated,
-    isAuthenticated: user.isAuthenticated,
-    currentUser: user.user
-  }
-};
-
 const mapDispatchToProps = dispatch => ({
   userActions: bindActionCreators(userActions, dispatch)
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
+export default withRouter(connect(null, mapDispatchToProps)(Login));

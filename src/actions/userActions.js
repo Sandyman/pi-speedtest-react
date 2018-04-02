@@ -42,7 +42,7 @@ export const logoutUser = () => {
   }
 };
 
-export const authoriseUser = (code, state) => dispatch => {
+export const authoriseUser = (code, state, callback) => dispatch => {
   const url = `${API_ENDPOINT}/auth/github?code=${code}&state=${state}`;
   const header = {
     method: 'GET',
@@ -59,6 +59,7 @@ export const authoriseUser = (code, state) => dispatch => {
           const claims = decode(jwtToken);
           window.localStorage.setItem('jwtToken', jwtToken);
           dispatch(injectUser(claims));
+          callback();
         })
       }
     })

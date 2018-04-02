@@ -11,9 +11,9 @@ const Main = () => (
   <main>
     <Switch>
       <Route exact path='/' component={Login} />
-      <ProtectedRoute path='/connection' component={Connection} />
-      <ProtectedRoute path='/charts' component={ChartGql} />
-      <ProtectedRoute path='/account' component={Account} />
+      <ProtectedRoute exact path='/connection' component={Connection} />
+      <ProtectedRoute exact path='/charts' component={ChartGql} />
+      <ProtectedRoute exact path='/account' component={Account} />
       <Route exact path='/auth/callback' component={Success} />
     </Switch>
   </main>
