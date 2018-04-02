@@ -3,7 +3,7 @@ import _ from 'underscore';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import {
-  Alert, Button, ButtonToolbar, Col, Collapse, Grid, Label, OverlayTrigger, Row, Tooltip
+  Alert, Button, ButtonToolbar, Col, Collapse, Grid, Label, Nav, Navbar, NavItem, OverlayTrigger, Row, Tooltip
 } from 'react-bootstrap';
 import LineChart from './LineChart';
 import AppMenu from './AppMenu';
@@ -119,16 +119,36 @@ class ChartGql extends Component {
               <br/><br/><br/>
             </div>;
 
+          const subMenu =
+            <Navbar>
+              <Navbar.Header>
+                <Navbar.Brand>
+                  Charts
+                </Navbar.Brand>
+              </Navbar.Header>
+              <Navbar.Collapse>
+                <Nav>
+                  <NavItem href="#download">Download</NavItem>
+                  <NavItem href="#upload">Upload</NavItem>
+                  <NavItem href="#ping">Ping</NavItem>
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>;
+
           return (
             <div>
               <AppMenu />
               <Grid bsClass="container">
-                <h2>Charts</h2>
+                {subMenu}
+                <Row>&nbsp;</Row>
                 {button}
                 {errorPanel}
                 {empty}
+                <a name="download"> </a>
                 {downloadChart}
+                <a name="upload"> </a>
                 {uploadChart}
+                <a name="ping"> </a>
                 {pingChart}
               </Grid>
             </div>
