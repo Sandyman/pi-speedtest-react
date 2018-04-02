@@ -27,9 +27,16 @@ class ChartGql extends Component {
     super(props);
 
     this.handleDismiss = this.handleDismiss.bind(this);
+
+    this.state = {
+      closeError: false,
+    }
   }
 
   handleDismiss() {
+    this.setState({
+      closeError: true,
+    })
   }
 
   render() {
@@ -44,7 +51,7 @@ class ChartGql extends Component {
           const emptyMsg = loading ? 'Loading data. Please wait...' : 'Nothing to see here.';
           const empty = !samplesAvailable ? <Row><h3>{emptyMsg}</h3></Row> : null;
 
-          const errorPanel = error
+          const errorPanel = error && !this.state.closeError
             ? <Row>
               <Col sm={6} smOffset={3}>
                 <Collapse in={!!error} timeout={1500}>
@@ -113,7 +120,12 @@ class ChartGql extends Component {
             <div className="pull-right">
               <ButtonToolbar>
                 <OverlayTrigger placement="right" overlay={tooltip}>
-                  <Button bsStyle='primary' disabled={loading} onClick={() => refetch()}>Refresh</Button>
+                  <Button bsStyle='primary' disabled={loading} onClick={() => {
+                    this.setState({
+                      closeError: false,
+                    });
+                    refetch();
+                  }}>Refresh</Button>
                 </OverlayTrigger>
               </ButtonToolbar>
               <br/><br/><br/>
