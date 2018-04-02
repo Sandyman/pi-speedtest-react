@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Grid, Jumbotron, Media, Navbar, Row } from 'react-bootstrap';
+import { Button, Grid, Jumbotron, Media, Navbar, ProgressBar, Row } from 'react-bootstrap';
 import { toQuery, } from '../util/utils';
 import createState from '../util/state';
 import NavbarHeader from '../components/NavbarHeader';
@@ -37,6 +37,14 @@ const getWindowOptions = () => {
 };
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showSpinner: false,
+    }
+  }
+
   handleLogin() {
     const secretState = createState();
     const qs = toQuery({
@@ -54,6 +62,9 @@ class Login extends Component {
       .then(response => {
         const { code, state } = response;
         this.props.userActions.authoriseUser(code, state);
+        this.setState({
+          showSpinner: true,
+        })
       })
       .catch(console.log);
   }
@@ -64,6 +75,10 @@ class Login extends Component {
       this.props.history.push('/account');
       return null;
     }
+
+    const progressBar = this.state.showSpinner
+      ? <ProgressBar active now={100} label='Hold on...'/>
+      : null;
 
     return (
       <Grid bsClass="container">
@@ -76,6 +91,7 @@ class Login extends Component {
           <br/><br/><br/>
         </Row>
         <Row>
+          {progressBar}
           <Jumbotron>
             <Media>
               <Media.Left>
@@ -87,14 +103,13 @@ class Login extends Component {
                 </Media.Heading>
                 <p>
                   For now, we only support logging in using GitHub. No need to set up an account or anything, simply
-                  click
-                  the button below and follow the prompts.
+                  click the button below and follow the prompts.
                   <br/>
                   Easy does it.
                 </p>
                 <br/>
                 <p>
-                  <Button bsStyle="primary" onClick={this.handleLogin.bind(this)}>Log in using GitHub</Button>
+                  <Button disabled={this.state.showSpinner} bsStyle="primary" onClick={this.handleLogin.bind(this)}>Log in using GitHub</Button>
                 </p>
               </Media.Body>
             </Media>

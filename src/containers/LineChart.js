@@ -1,5 +1,4 @@
 import React, { Component} from 'react';
-import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
 
@@ -28,7 +27,7 @@ const withHue = h => c => {
 const samplesToChartData = (samples, { xLabel, yLabel, color, title }) => {
   const initialValue = {
     labels: [],
-    downloads: [],
+    samples: [],
   };
 
   const reduced = samples.reduce((acc, item) => {
@@ -36,7 +35,7 @@ const samplesToChartData = (samples, { xLabel, yLabel, color, title }) => {
     const y = item[yLabel];
 
     acc.labels.push(convertTimestamp(x));
-    acc.downloads.push(y);
+    acc.samples.push(y);
     return acc;
   }, initialValue);
 
@@ -61,7 +60,7 @@ const samplesToChartData = (samples, { xLabel, yLabel, color, title }) => {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: reduced.downloads,
+      data: reduced.samples,
     }]
   }
 };
@@ -125,16 +124,10 @@ class LineChart extends Component {
 }
 
 LineChart.propTypes = {
+  height: propTypes.number,
   options: propTypes.object,
   samples: propTypes.array,
+  width: propTypes.number,
 };
 
-const mapStateToProps = (state) => {
-  const { data } = state;
-  const { samples } = data;
-  return {
-    samples,
-  }
-};
-
-export default connect(mapStateToProps)(LineChart);
+export default LineChart;

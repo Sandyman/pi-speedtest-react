@@ -8,7 +8,6 @@ import { decode } from 'jsonwebtoken';
 import NavbarHeader from '../components/NavbarHeader';
 
 import * as userActions from '../actions/userActions';
-import * as sampleActions from '../actions/sampleActions';
 
 class AppMenu extends Component {
   constructor(props) {
@@ -39,7 +38,6 @@ class AppMenu extends Component {
 
   handleLogout() {
     this.props.history.push('/');
-    this.props.sampleActions.clearSamples();
     this.props.userActions.logoutUser();
   }
 
@@ -92,7 +90,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  sampleActions: bindActionCreators(sampleActions, dispatch),
   userActions: bindActionCreators(userActions, dispatch),
 });
 
