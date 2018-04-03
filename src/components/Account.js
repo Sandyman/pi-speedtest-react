@@ -14,7 +14,7 @@ class Account extends Component {
           <h2>Account</h2>
           <Row><br/></Row>
           <Row>
-            <Panel>
+            <Panel bsStyle="primary">
               <Col smOffset={1}>
                 <br/><h3>User</h3><br/>
               </Col>
@@ -23,7 +23,7 @@ class Account extends Component {
             </Panel>
           </Row>
           <Row>
-            <Panel>
+            <Panel bsStyle="primary">
               <Col smOffset={1}>
                 <br/><h3>Authentication</h3><br/>
               </Col>
@@ -32,7 +32,7 @@ class Account extends Component {
             </Panel>
           </Row>
           <Row>
-            <Panel>
+            <Panel bsStyle="primary">
               <Col smOffset={1}>
                 <br/><h3>Danger zone</h3><br/>
               </Col>

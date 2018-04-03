@@ -11,12 +11,12 @@ const Connection = () => (
       <h2>Connection</h2>
       <Row><br/></Row>
       <Row>
-        <Panel>
+        <Panel bsStyle="primary">
           <LastSample/>
         </Panel>
       </Row>
       <Row>
-        <Panel>
+        <Panel bsStyle="primary">
           <Statistics/>
         </Panel>
       </Row>
