@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Button, Col, Collapse, ControlLabel, Fade, Form, FormControl, FormGroup, Tooltip
-} from 'react-bootstrap';
+import { Button, Col, Collapse, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Clippy from './Clippy';
