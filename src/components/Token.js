@@ -101,8 +101,6 @@ class Token extends Component {
                   <Col sm={5}>
                     <FormControl.Static>{tokenStr}</FormControl.Static>
                   </Col>
-                  <Col sm={2}>
-                  </Col>
                 </FormGroup>
                 <Col smOffset={1}>
                   <Button bsSize="xsmall" onClick={this.handleTokenInfoToggle}>{buttonText}</Button>
