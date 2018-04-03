@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Col, Grid, Panel, Row } from 'react-bootstrap';
 import AppMenu from '../containers/AppMenu';
 import Danger from '../containers/Danger';
-import Token from '../containers/Token'
+import Token from './Token'
 import User from './User';
 
 class Account extends Component {
