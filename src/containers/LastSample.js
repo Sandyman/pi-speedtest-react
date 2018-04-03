@@ -11,6 +11,9 @@ const GET_LAST_SAMPLE = gql`
     download
     upload
     ping
+    isp
+    location
+    country
   }
 }
 `;
@@ -49,40 +52,35 @@ const LastSample = () => (
       const formattedNum = (num) => <span className="stats-numbers">{roundToMaxThreeDecimals(num)}</span>;
       const withLoading = f => (loading ? 'Loading...' : f);
 
-      const { download, upload, ping } = data.getLastSample || {};
+      const { download, upload, ping, isp, location, country } = data.getLastSample || {};
+
       const dl = withLoading(formattedNum(download));
       const ul = withLoading(formattedNum(upload));
       const pg = withLoading(formattedNum(ping));
 
+      const provider = withLoading(isp);
+      const city = withLoading(`${location} (${country})`);
       return (
         <div>
           {pageHeader}
           <div>
             <Row className='show-grid'>
-              <Col smOffset={1} sm={2}>
-                <strong>Download (Mbps)</strong>
-              </Col>
-              <Col sm={2} smOffset={0}>
-                {dl}
-              </Col>
+              <Col smOffset={1} sm={2}><strong>Download (Mbps)</strong></Col>
+              <Col sm={1} smOffset={0}>{dl}</Col>
+              <Col smOffset={1} sm={2}><strong>Provider</strong></Col>
+              <Col>{provider}</Col>
             </Row>
             <Row><br/></Row>
             <Row>
-              <Col smOffset={1} sm={2}>
-                <strong>Upload (Mbps)</strong>
-              </Col>
-              <Col sm={2} smOffset={0}>
-                {ul}
-              </Col>
+              <Col smOffset={1} sm={2}><strong>Upload (Mbps)</strong></Col>
+              <Col sm={1} smOffset={0}>{ul}</Col>
+              <Col smOffset={1} sm={2}><strong>City</strong></Col>
+              <Col>{city}</Col>
             </Row>
             <Row><br/></Row>
             <Row>
-              <Col smOffset={1} sm={2}>
-                <strong>Ping (ms)</strong>
-              </Col>
-              <Col sm={2} smOffset={0}>
-                {pg}
-              </Col>
+              <Col smOffset={1} sm={2}><strong>Ping (ms)</strong></Col>
+              <Col sm={1} smOffset={0}>{pg}</Col>
             </Row>
             <Row><br/></Row>
           </div>
