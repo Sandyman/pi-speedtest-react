@@ -47,7 +47,7 @@ class Login extends Component {
     const secretState = createState();
     const qs = toQuery({
       client_id: CLIENT_ID,
-      scope: 'user',
+      scope: 'user:email',
       state: secretState,
       redirect_uri: REDIRECT_URL,
     });
