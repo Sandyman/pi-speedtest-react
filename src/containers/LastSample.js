@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Col, Glyphicon, Row } from 'react-bootstrap';
+import { Alert, Col, Row } from 'react-bootstrap';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import RefreshGlyphButton from '../components/RefreshGlyphButton';

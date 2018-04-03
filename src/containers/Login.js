@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Grid, Jumbotron, Media, Navbar, ProgressBar, Row } from 'react-bootstrap';
+import { Grid, Navbar, ProgressBar, Row } from 'react-bootstrap';
 import { toQuery, } from '../util/utils';
 import createState from '../util/state';
 import GitHubLogin from '../components/GitHubLogin';
@@ -10,8 +10,6 @@ import NavbarHeader from '../components/NavbarHeader';
 import popupWindow from '../util/openWindow';
 import * as userActions from '../actions/userActions';
 import { CLIENT_ID, REDIRECT_URL} from "../config";
-
-import icon from '../github-icon-2.png';
 
 const getWindowOptions = () => {
   const windowArea = {
