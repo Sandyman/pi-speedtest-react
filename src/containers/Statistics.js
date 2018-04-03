@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert, Button, Col, Glyphicon, Row } from 'react-bootstrap';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import RefreshGlyphButton from '../components/RefreshGlyphButton';
 import Stats from '../components/Stats';
 
 const GET_STATISTICS = gql`
@@ -34,9 +35,10 @@ const Statistics = () => (
         <br/>
         <h3>
           Statistics&nbsp;&nbsp;
-          <Button bsSize="small" onClick={() => refetch()} disabled={loading}>
-            <Glyphicon glyph="glyphicon glyphicon-refresh"/>
-          </Button>
+          <RefreshGlyphButton
+            loading={loading}
+            handleClick={() => refetch()}
+          />
         </h3>
         <br/>
       </Col>;

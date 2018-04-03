@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Button, Grid, Jumbotron, Media, Navbar, ProgressBar, Row } from 'react-bootstrap';
 import { toQuery, } from '../util/utils';
 import createState from '../util/state';
+import GitHubLogin from '../components/GitHubLogin';
 import NavbarHeader from '../components/NavbarHeader';
 import popupWindow from '../util/openWindow';
 import * as userActions from '../actions/userActions';
@@ -38,6 +39,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
+    this.handleLogin = this.handleLogin.bind(this);
     this.state = {
       showSpinner: false,
     }
@@ -72,7 +74,7 @@ class Login extends Component {
   render() {
     const progressBar = this.state.showSpinner
       ? <ProgressBar active now={100} label='Hold on...'/>
-      : null;
+      : <br/>;
 
     return (
       <Grid bsClass="container">
@@ -83,31 +85,13 @@ class Login extends Component {
         </Row>
         <Row>
           {progressBar}
-          <br/><br/><br/>
+          <br/><br/>
         </Row>
         <Row>
-          <Jumbotron>
-            <Media>
-              <Media.Left>
-                <img width={288} height={240} src={icon} alt="Purrrr"/>
-              </Media.Left>
-              <Media.Body>
-                <Media.Heading>
-                  Log in using GitHub<br/><br/>
-                </Media.Heading>
-                <p>
-                  For now, we only support logging in using GitHub. No need to set up an account or anything, simply
-                  click the button below and follow the prompts.
-                  <br/>
-                  Easy does it.
-                </p>
-                <br/>
-                <p>
-                  <Button disabled={this.state.showSpinner} bsStyle="primary" onClick={this.handleLogin.bind(this)}>Log in using GitHub</Button>
-                </p>
-              </Media.Body>
-            </Media>
-          </Jumbotron>
+          <GitHubLogin
+            showSpinner={this.state.showSpinner}
+            handleClick={this.handleLogin}
+          />
         </Row>
       </Grid>
     );
