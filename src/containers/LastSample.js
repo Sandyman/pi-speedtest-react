@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert, Col, Row } from 'react-bootstrap';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import PanelHeader from '../components/PanelHeader';
 import RefreshGlyphButton from '../components/RefreshGlyphButton';
 import roundToMaxThreeDecimals from '../util/round';
 
@@ -21,21 +22,20 @@ const GET_LAST_SAMPLE = gql`
 const LastSample = () => (
   <Query query={GET_LAST_SAMPLE} fetchPolicy="cache-and-network">
     {({ loading, error, data, refetch }) => {
-      const pageHeader = <Col smOffset={1}>
-        <br/>
-        <h3>
-          Most recent results&nbsp;&nbsp;
-          <RefreshGlyphButton
-            loading={loading}
-            handleClick={() => refetch()}
-          />
-        </h3>
-        <br/>
-      </Col>;
+      const panelHeader = <PanelHeader
+        title="Most recent results"
+        subTitle="Results of the last measurement taken"
+      >
+        &nbsp;&nbsp;
+        <RefreshGlyphButton
+          loading={loading}
+          handleClick={() => refetch()}
+        />
+      </PanelHeader>;
 
       if (error) return (
         <div>
-          {pageHeader}
+          {panelHeader}
           <Row>
             <Col sm={8} smOffset={1}>
               <Alert bsStyle="danger">
@@ -62,7 +62,7 @@ const LastSample = () => (
       const city = withLoading(`${location} (${country})`);
       return (
         <div>
-          {pageHeader}
+          {panelHeader}
           <div>
             <Row className='show-grid'>
               <Col smOffset={1} sm={2}><strong>Download (Mbps)</strong></Col>

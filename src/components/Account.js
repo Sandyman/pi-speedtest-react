@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Grid, Panel, Row } from 'react-bootstrap';
+import PanelHeader from '../components/PanelHeader';
 import AppMenu from '../containers/AppMenu';
 import Danger from '../containers/Danger';
 import Token from './Token'
@@ -15,27 +16,30 @@ class Account extends Component {
           <Row><br/></Row>
           <Row>
             <Panel bsStyle="primary">
-              <Col smOffset={1}>
-                <br/><h3>User</h3><br/>
-              </Col>
+              <PanelHeader
+                title="User"
+                subTitle="Everything about you"
+              />
               <User />
               <br/>
             </Panel>
           </Row>
           <Row>
             <Panel bsStyle="primary">
-              <Col smOffset={1}>
-                <br/><h3>Authentication</h3><br/>
-              </Col>
+              <PanelHeader
+                title="Authentication"
+                subTitle="So we know it's your data and not someone else's"
+              />
               <Token />
               <br/>
             </Panel>
           </Row>
           <Row>
             <Panel bsStyle="primary">
-              <Col smOffset={1}>
-                <br/><h3>Danger zone</h3><br/>
-              </Col>
+              <PanelHeader
+                title="Danger zone"
+                subTitle="You can break things here if you're not careful"
+              />
               <Danger />
               <Col><br/><br/></Col>
             </Panel>
