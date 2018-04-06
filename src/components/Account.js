@@ -18,7 +18,7 @@ class Account extends Component {
             <Panel bsStyle="primary">
               <PanelHeader
                 title="User"
-                subTitle="Everything about you"
+                subTitle="Everything about you. (Well, maybe not everything.)"
               />
               <User />
               <br/>
