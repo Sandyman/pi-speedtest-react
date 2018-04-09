@@ -62,16 +62,17 @@ class Token extends Component {
   render() {
     const buttonText = this.state.showTokenInfo ? 'Close' : 'What is this?';
     return (
-      <Query query={GET_TOKEN} fetchPolicy="cache-and-network">
+      <Query query={GET_TOKEN} fetchPolicy="cache-first">
         {({ loading, error, data }) => {
           if (error) return 'Error...';
 
           const { token } = data.getToken || {};
-          const tokenStr = token
-            ? token
-            : loading
-              ? 'Loading...'
-              : 'It looks like you don\'t have a token yet';
+          const tokenStr =
+            token
+              ? token
+              : loading
+                ? 'Loading...'
+                : 'It looks like you don\'t have a token yet';
 
           const explanation = token
             ? <p>
