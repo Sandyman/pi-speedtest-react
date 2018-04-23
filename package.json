@@ -28,8 +28,8 @@
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "dev": "cd src/config; ln -sf config-dev.json config.json; cd ..",
-    "prod": "cd src/config; ln -sf config-prod.json config.json; cd ..",
+    "dev": "cd src/config; cp -f config-dev.json config.json; cd ..",
+    "prod": "cd src/config; cp -f config-prod.json config.json; cd ..",
     "start": "react-scripts start",
     "build": "react-scripts build && cp build/index.html build/404.html",
     "deploy": "npm run prod && npm run build && netlify deploy && npm run dev",
