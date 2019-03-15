@@ -63,7 +63,7 @@ const samplesToChartData = (mean, samples, { xLabel, yLabel, color, title }) => 
       pointHitRadius: 10,
       data: reduced.samples,
     }, {
-      label: 'Mean',
+      label: `Mean (${mean})`,
       fill: false,
       radius: 0,
       backgroundColor: `rgba(${withHue(0.3)(color)})`,
