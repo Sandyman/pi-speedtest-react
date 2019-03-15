@@ -72,7 +72,7 @@ const LastSample = () => (
               <Col smOffset={1} sm={2}><strong>Download (Mbps)</strong></Col>
               <Col sm={1} smOffset={0}>{dl}</Col>
               <Col smOffset={1} sm={2}><strong>Time</strong></Col>
-              <Col sm={1} smOffset={0}>{formattedTime}</Col>
+              <Col sm={2} smOffset={0}>{formattedTime}</Col>
             </Row>
             <Row><br/></Row>
             <Row>
