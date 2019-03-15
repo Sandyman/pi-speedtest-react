@@ -105,7 +105,7 @@ const getChartOptions = ({ title, color }) => ({
       },
       stacked: false,
       ticks: {
-        maxTicksLimit: 10,
+        maxTicksLimit: 15,
       },
     }],
     yAxes: [{
