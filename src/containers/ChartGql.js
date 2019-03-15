@@ -83,7 +83,7 @@ class ChartGql extends Component {
             ? <Row>
               <h3><Label bsStyle="primary">Download</Label></h3>
               <LineChart
-                mean={Math.round(10 * stats.download.mean) / 10}
+                mean={Math.round(100 * stats.download.mean) / 100}
                 samples={samples}
                 options={{
                   color: 'blue',
@@ -101,7 +101,7 @@ class ChartGql extends Component {
               <br/>
               <h3><Label bsStyle="primary">Upload</Label></h3>
               <LineChart
-                mean={Math.round(1000 * stats.upload.mean) / 1000}
+                mean={Math.round(100 * stats.upload.mean) / 100}
                 samples={samples}
                 options={{
                   color: 'purple',
