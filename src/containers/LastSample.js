@@ -60,8 +60,7 @@ const LastSample = () => (
       const ul = withLoading(formattedNum(upload));
       const pg = withLoading(formattedNum(ping));
       
-      const formattedTime = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
-
+      const formattedTime = withLoading(moment(timestamp).format('YYYY-MM-DD HH:mm:ss'));
       const provider = withLoading(isp);
       const city = withLoading(`${location} (${country})`);
       return (
