@@ -65,7 +65,7 @@ const LastSample = () => (
           {panelHeader}
           <div>
             <Row className='show-grid'>
-              <Col smOffset={1} sm={2}<strong>Time</strong></Col>
+              <Col smOffset={1} sm={2}><strong>Time</strong></Col>
               <Col smOffset={0} sm={1}>{timestamp}</Col>
               <Col smOffset={1} sm={2}><strong>Download (Mbps)</strong></Col>
               <Col sm={1} smOffset={0}>{dl}</Col>
