@@ -100,11 +100,13 @@ const getChartOptions = ({ title, color }) => ({
 
   scales: {
     xAxes: [{
-      maxTicksLimit: 10,
       gridLines: {
         color: `rgba(${withHue(0.3)(color)})`,
       },
-      stacked: false
+      stacked: false,
+      ticks: {
+        maxTicksLimit: 10,
+      },
     }],
     yAxes: [{
       gridLines: {
