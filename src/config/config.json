@@ -1,5 +1,5 @@
 {
     "clientId": "d7af928a33075b0c817c",
     "redirectUrl": "https://app.pi-speedtest.net/auth/callback",
-    "apiEndpoint": "api.speedtest.net"
+    "apiEndpoint": "https://api.speedtest.net/v1"
 }
