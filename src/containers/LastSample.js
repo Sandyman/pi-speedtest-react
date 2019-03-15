@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert, Col, Row } from 'react-bootstrap';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import moment from 'moment';
 import PanelHeader from '../components/PanelHeader';
 import RefreshGlyphButton from '../components/RefreshGlyphButton';
 import roundToMaxThreeDecimals from '../util/round';
@@ -58,6 +59,8 @@ const LastSample = () => (
       const dl = withLoading(formattedNum(download));
       const ul = withLoading(formattedNum(upload));
       const pg = withLoading(formattedNum(ping));
+      
+      const formattedTime = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
 
       const provider = withLoading(isp);
       const city = withLoading(`${location} (${country})`);
@@ -66,27 +69,24 @@ const LastSample = () => (
           {panelHeader}
           <div>
             <Row className='show-grid'>
-              <Col smOffset={1} sm={2}><strong>Time</strong></Col>
-              <Col sm={1} smOffset={0}>{timestamp}</Col>
-            </Row>
-            <Row><br/></Row>
-            <Row className='show-grid'>
               <Col smOffset={1} sm={2}><strong>Download (Mbps)</strong></Col>
               <Col sm={1} smOffset={0}>{dl}</Col>
-              <Col smOffset={1} sm={2}><strong>Provider</strong></Col>
-              <Col>{provider}</Col>
+              <Col smOffset={1} sm={2}><strong>Time</strong></Col>
+              <Col sm={1} smOffset={0}>{formattedTime}</Col>
             </Row>
             <Row><br/></Row>
             <Row>
               <Col smOffset={1} sm={2}><strong>Upload (Mbps)</strong></Col>
               <Col sm={1} smOffset={0}>{ul}</Col>
-              <Col smOffset={1} sm={2}><strong>City</strong></Col>
-              <Col>{city}</Col>
+              <Col smOffset={1} sm={2}><strong>Provider</strong></Col>
+              <Col>{provider}</Col>
             </Row>
             <Row><br/></Row>
             <Row>
               <Col smOffset={1} sm={2}><strong>Ping (ms)</strong></Col>
               <Col sm={1} smOffset={0}>{pg}</Col>
+              <Col smOffset={1} sm={2}><strong>City</strong></Col>
+              <Col>{city}</Col>
             </Row>
             <Row><br/></Row>
           </div>
