@@ -66,8 +66,8 @@ const samplesToChartData = (mean, samples, { xLabel, yLabel, color, title }) => 
       label: 'Mean',
       fill: false,
       radius: 0,
-      backgroundColor: `rgba(${withHue(0.4)(color)})`,
-      borderColor: `rgba(${withHue(0.4)(color)})`,
+      backgroundColor: `rgba(${withHue(0.3)(color)})`,
+      borderColor: `rgba(${withHue(0.3)(color)})`,
       data: Array.apply(null, new Array(reduced.samples.length)).map(Number.prototype.valueOf, mean),
     }]
   }
