@@ -24,7 +24,7 @@ const withHue = h => c => {
   return cl.join(',');
 };
 
-const samplesToChartData = (samples, { xLabel, yLabel, color, title }) => {
+const samplesToChartData = (mean, samples, { xLabel, yLabel, color, title }) => {
   const initialValue = {
     labels: [],
     samples: [],
@@ -61,6 +61,11 @@ const samplesToChartData = (samples, { xLabel, yLabel, color, title }) => {
       pointRadius: 1,
       pointHitRadius: 10,
       data: reduced.samples,
+    }, {
+      fill: false,
+      radius: 0,
+      backgroundColor: `rgba(${withHue(0.2)(color)})`,
+      data: Array.apply(null, new Array(reduced.samples.length)).map(Number.prototype.valueOf, mean),
     }]
   }
 };
@@ -110,8 +115,8 @@ const getChartOptions = ({ title, color }) => ({
 
 class LineChart extends Component {
   render() {
-    const { height, options, samples, width } = this.props;
-    const chartData = samplesToChartData(samples, options);
+    const { mean, height, options, samples, width } = this.props;
+    const chartData = samplesToChartData(mean, samples, options);
     const chartOptions = getChartOptions(options);
     return (
       <Line
@@ -124,6 +129,7 @@ class LineChart extends Component {
 }
 
 LineChart.propTypes = {
+  mean: propTypes.number,
   height: propTypes.number,
   options: propTypes.object,
   samples: propTypes.array,
