@@ -39,6 +39,9 @@ const samplesToChartData = (mean, samples, { xLabel, yLabel, color, title }) => 
     return acc;
   }, initialValue);
 
+
+  const unit = title.match(new RegExp(/\((.*)\)/))[1];
+  const meanLabel = `Mean (${mean} ${unit})`;
   return {
     labels: reduced.labels,
     datasets: [{
@@ -63,7 +66,7 @@ const samplesToChartData = (mean, samples, { xLabel, yLabel, color, title }) => 
       pointHitRadius: 10,
       data: reduced.samples,
     }, {
-      label: `Mean (${mean})`,
+      label: meanLabel,
       fill: false,
       radius: 0,
       backgroundColor: `rgba(${withHue(0.3)(color)})`,
