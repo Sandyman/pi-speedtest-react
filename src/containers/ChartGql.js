@@ -16,6 +16,17 @@ query {
       ping
       timestamp
   }
+  getStats { 
+    ping {
+      mean 
+    } 
+    upload { 
+      mean 
+    } 
+    download { 
+      mean 
+    } 
+  }
 }
 `;
 
