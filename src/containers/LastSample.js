@@ -52,7 +52,7 @@ const LastSample = () => (
       const formattedNum = (num) => <span className="stats-numbers">{roundToMaxThreeDecimals(num)}</span>;
       const withLoading = f => (loading ? 'Loading...' : f);
 
-      const { download, upload, ping, isp, location, country } = data.getLastSample || {};
+      const { timestamp, download, upload, ping, isp, location, country } = data.getLastSample || {};
 
       const dl = withLoading(formattedNum(download));
       const ul = withLoading(formattedNum(upload));
@@ -65,6 +65,8 @@ const LastSample = () => (
           {panelHeader}
           <div>
             <Row className='show-grid'>
+              <Col smOffset={1} sm={2}<strong>Time</strong></Col>
+              <Col smOffset={0} sm={1}>{timestamp}</Col>
               <Col smOffset={1} sm={2}><strong>Download (Mbps)</strong></Col>
               <Col sm={1} smOffset={0}>{dl}</Col>
               <Col smOffset={1} sm={2}><strong>Provider</strong></Col>
