@@ -9,6 +9,7 @@ import roundToMaxThreeDecimals from '../util/round';
 const GET_LAST_SAMPLE = gql`
 {
   getLastSample {
+    timestamp
     download
     upload
     ping
@@ -66,7 +67,10 @@ const LastSample = () => (
           <div>
             <Row className='show-grid'>
               <Col smOffset={1} sm={2}><strong>Time</strong></Col>
-              <Col smOffset={0} sm={1}>{timestamp}</Col>
+              <Col sm={1} smOffset={0}>{timestamp}</Col>
+            </Row>
+            <Row><br/></Row>
+            <Row className='show-grid'>
               <Col smOffset={1} sm={2}><strong>Download (Mbps)</strong></Col>
               <Col sm={1} smOffset={0}>{dl}</Col>
               <Col smOffset={1} sm={2}><strong>Provider</strong></Col>
