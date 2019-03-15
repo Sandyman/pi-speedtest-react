@@ -59,6 +59,8 @@ class ChartGql extends Component {
           const samples = data.getSamples;
           const samplesAvailable = samples && !_.isEmpty(samples);
 
+          const stats = data.getStats;
+
           const emptyMsg = loading ? 'Loading data. Please wait...' : 'Nothing to see here.';
           const empty = !samplesAvailable ? <Row><h3>{emptyMsg}</h3></Row> : null;
 
@@ -81,6 +83,7 @@ class ChartGql extends Component {
             ? <Row>
               <h3><Label bsStyle="primary">Download</Label></h3>
               <LineChart
+                mean={stats.download.mean}
                 samples={samples}
                 options={{
                   color: 'blue',
@@ -98,6 +101,7 @@ class ChartGql extends Component {
               <br/>
               <h3><Label bsStyle="primary">Upload</Label></h3>
               <LineChart
+                mean={stats.upload.mean}
                 samples={samples}
                 options={{
                   color: 'purple',
@@ -115,6 +119,7 @@ class ChartGql extends Component {
               <br/>
               <h3><Label bsStyle="primary">Ping</Label></h3>
               <LineChart
+                mean={stats.ping.mean}
                 samples={samples}
                 options={{
                   color: 'red',
