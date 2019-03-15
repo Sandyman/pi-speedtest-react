@@ -44,6 +44,7 @@ const samplesToChartData = (mean, samples, { xLabel, yLabel, color, title }) => 
     datasets: [{
       label: title,
       fill: false,
+      radius: 0,
       lineTension: 0.1,
       backgroundColor: `rgba(${withHue(0.4)(color)})`,
       borderColor: `rgba(${withHue(0.6)(color)})`,
