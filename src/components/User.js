@@ -71,7 +71,11 @@ class User extends Component {
                   Donate
                 </Col>
                 <Col sm={4}>
-                  <FormControl.Static><a href={"https://pispeedtest.memberful.com/checkout?plan=38175"}/>Donate $1.49 a month to support Pi Speedtest</FormControl.Static>
+                  <FormControl.Static>
+                    <a href={"https://pispeedtest.memberful.com/checkout?plan=38175"} target="_blank">
+                      Donate $1.49 a month to support Pi Speedtest
+                    </a>
+                  </FormControl.Static>
                 </Col>
               </FormGroup>
 
