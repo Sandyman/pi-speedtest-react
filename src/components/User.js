@@ -72,7 +72,7 @@ class User extends Component {
                 </Col>
                 <Col sm={8}>
                   <FormControl.Static>
-                    Support Pi Speedtest with <a href={"https://pispeedtest.memberful.com/checkout?plan=38175"}> $1.49 a month </a> or <a href={" https://pispeedtest.memberful.com/checkout?plan=38176 "}> $14.99 a year (16.7% discount)</a>.
+                    Support Pi Speedtest: <a href={"https://pispeedtest.memberful.com/checkout?plan=38175"}>Monthly ($1.49)</a> or <a href={" https://pispeedtest.memberful.com/checkout?plan=38176 "}>Yearly ($14.99)</a> (16.7% discount).
                   </FormControl.Static>
                 </Col>
               </FormGroup>
