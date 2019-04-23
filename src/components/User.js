@@ -70,14 +70,9 @@ class User extends Component {
                 <Col componentClass={ControlLabel} sm={2}>
                   Donate
                 </Col>
-                <Col sm={4}>
+                <Col sm={8}>
                   <FormControl.Static>
-                    Support Pi Speedtest with
-                    <a href={"https://pispeedtest.memberful.com/checkout?plan=38175"}>
-                      $1.49 a month
-                    </a> or <a href={" https://pispeedtest.memberful.com/checkout?plan=38176 "}>
-                      $14.99 a year (16.7% discount)
-                    </a>.
+                    Support Pi Speedtest with <a href={"https://pispeedtest.memberful.com/checkout?plan=38175"}> $1.49 a month </a> or <a href={" https://pispeedtest.memberful.com/checkout?plan=38176 "}> $14.99 a year (16.7% discount)</a>.
                   </FormControl.Static>
                 </Col>
               </FormGroup>
