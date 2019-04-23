@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Grid, Panel, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 import PanelHeader from '../components/PanelHeader';
 import AppMenu from '../containers/AppMenu';
 import Danger from '../containers/Danger';
@@ -10,6 +11,25 @@ class Account extends Component {
   render() {
     return (
       <div>
+        <Helmet
+          script={[{
+            type: 'text/javascript',
+            innerHTML: 'window.MemberfulOptions = {site: "https://pispeedtest.memberful.com"};\n' +
+              '\n' +
+              '  (function() {\n' +
+              '    var s   = document.createElement(\'script\');\n' +
+              '\n' +
+              '    s.type  = \'text/javascript\';\n' +
+              '    s.async = true;\n' +
+              '    s.src   = \'https://d35xxde4fgg0cx.cloudfront.net/assets/embedded.js\';\n' +
+              '\n' +
+              '    setup = function() { window.MemberfulEmbedded.setup(); }\n' +
+              '\n' +
+              '    s.addEventListener("load", setup, false);\n' +
+              '\n' +
+              '    ( document.getElementsByTagName(\'head\')[0] || document.getElementsByTagName(\'body\')[0] ).appendChild( s );\n' +
+              '  })();'
+          }]} />
         <AppMenu />
         <Grid bsClass="container">
           <h2>Account</h2>
