@@ -14,10 +14,15 @@ body {
   margin-bottom: 0;
 }
 
-.donate-button {
+.donate-button a {
   font-weight: bold;
   padding: 8px;
   background-color: #337ab7;
   color: white;
   border-radius: 4px;
+}
+
+.donate-button a:hover {
+  color: azure;
+  text-underline: none;
 }
