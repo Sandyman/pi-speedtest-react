@@ -6,6 +6,7 @@ import AppMenu from '../containers/AppMenu';
 import Danger from '../containers/Danger';
 import Token from './Token'
 import User from './User';
+import CookieConsent, { Cookies } from "react-cookie-consent";
 
 class Account extends Component {
   render() {
@@ -30,6 +31,9 @@ class Account extends Component {
               '    ( document.getElementsByTagName(\'head\')[0] || document.getElementsByTagName(\'body\')[0] ).appendChild( s );\n' +
               '  })();'
           }]} />
+        <CookieConsent>
+          This website uses cookies to enhance the user experience.
+        </CookieConsent>
         <AppMenu />
         <Grid bsClass="container">
           <h2>Account</h2>

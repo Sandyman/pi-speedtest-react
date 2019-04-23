@@ -19,6 +19,7 @@
     "react-apollo": "^2.5.5",
     "react-bootstrap": "^0.32.4",
     "react-chartjs-2": "^2.7.6",
+    "react-cookie-consent": "^2.3.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
