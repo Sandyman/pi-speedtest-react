@@ -5,11 +5,19 @@ body {
 }
 
 .stats-numbers {
-  font-family: Tahoma;
+  font-family: Tahoma, sans-serif;
   font-weight: 600;
   font-size: 1.15em;
 }
 
 .navbar {
   margin-bottom: 0;
+}
+
+.donate-button {
+  font-weight: bold;
+  padding: 8px;
+  background-color: #337ab7;
+  color: white;
+  border-radius: 4px;
 }
