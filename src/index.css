@@ -14,7 +14,7 @@ body {
   margin-bottom: 0;
 }
 
-.donate-button a {
+a .donate-button {
   font-weight: bold;
   padding: 8px;
   background-color: #337ab7;
@@ -22,7 +22,7 @@ body {
   border-radius: 4px;
 }
 
-.donate-button a:hover {
+a:hover .donate-button {
   color: azure;
   text-underline: none;
 }
