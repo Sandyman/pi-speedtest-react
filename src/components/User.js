@@ -66,6 +66,16 @@ class User extends Component {
               </FormGroup>
               {emailField}
               {imageHeader}
+              <FormGroup controlId='formHorizontalToken'>
+                <Col componentClass={ControlLabel} sm={2}>
+                  Donate
+                </Col>
+                <Col sm={4}>
+                  <FormControl.Static><a href={"https://pispeedtest.memberful.com/checkout?plan=38175"}/>Donate $1.49 a month to support Pi Speedtest</FormControl.Static>
+                </Col>
+              </FormGroup>
+
+
             </Form>
           );
         }}
