@@ -23,6 +23,6 @@ body {
 }
 
 .donate-button a:hover {
-  color: azure;
-  text-underline: none;
+  color: lightgrey;
+  text-decoration: none;
 }
