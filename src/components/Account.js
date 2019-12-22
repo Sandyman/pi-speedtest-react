@@ -58,8 +58,8 @@ class Account extends Component {
                 <Col smOffset={1}>
                   <strong>Important information</strong>: please update your token in order to be able to keep sending your measurement samples!
                   <br/>
-                  If you have changed your token on or after 22 December 2019, you don't have to do anything.
-                  <br/>
+                  If you have changed your token after 22 December 2019, you don't have to do anything.
+                  <br/><br/>
                 </Col>
               </div>
               <Token />
