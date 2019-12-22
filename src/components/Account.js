@@ -54,6 +54,12 @@ class Account extends Component {
                 title="Authentication"
                 subTitle="So we know it's your data and not someone else's"
               />
+              <p>
+                <strong>Important information</strong>: please update your token in order to be able to keep sending your measurement samples!
+                <br/>
+                If you have changed your token on or after 22 December 2019, you don't have to do anything.
+                <br/>
+              </p>
               <Token />
               <br/>
             </Panel>
