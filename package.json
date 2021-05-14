@@ -9,7 +9,7 @@
     "apollo-link-context": "^1.0.19",
     "apollo-link-http": "^1.5.16",
     "bootstrap": "^3.4.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.10.1",
     "jsonwebtoken": "^8.5.1",
