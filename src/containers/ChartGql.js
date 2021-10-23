@@ -172,11 +172,11 @@ class ChartGql extends Component {
                 {button}
                 {errorPanel}
                 {empty}
-                <a name="download"> </a>
+                <p name="download"> </p>
                 {downloadChart}
-                <a name="upload"> </a>
+                <p name="upload"> </p>
                 {uploadChart}
-                <a name="ping"> </a>
+                <p name="ping"> </p>
                 {pingChart}
               </Grid>
             </div>
