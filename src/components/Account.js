@@ -6,7 +6,7 @@ import AppMenu from '../containers/AppMenu';
 import Danger from '../containers/Danger';
 import Token from './Token'
 import User from './User';
-import CookieConsent, { Cookies } from "react-cookie-consent";
+import CookieConsent from "react-cookie-consent";
 
 class Account extends Component {
   render() {
