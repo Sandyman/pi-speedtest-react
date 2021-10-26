@@ -7,7 +7,7 @@ class NavbarHeader extends Component {
     return (
       <Navbar.Header>
         <Navbar.Brand>
-          Raspberry Pi Speedtest (beta)
+          Raspberry Pi Speedtest (CF Beta)
         </Navbar.Brand>
       </Navbar.Header>
     );
